@@ -2,7 +2,7 @@
 
 namespace base;
 
-class Controller {
+abstract class Controller {
     private $action;
 
     public function __construct() {
@@ -13,7 +13,10 @@ class Controller {
     
     public function set_action($action) {
         $this->action = $action; 
-    } 
+    }
+
+    abstract function run();
+
 }
 
 ?>
