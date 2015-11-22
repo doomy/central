@@ -1,11 +1,7 @@
 <?php // version 9 ?>
 
 
-<?php if($just_updated) { ?>
-    <div class="update-success-message">
-        Succesfully updated.
-    </div>
-<?php } ?>
+<?php if($just_updated) include($GLOBALS['env']->ENV_VARS['CENTRAL_PATH'].'templates/admin/update_success_message.tpl.php'); ?>
 <form action='' enctype="multipart/form-data" id='table_form' method='POST'>
     <table>
         <tr>
