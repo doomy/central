@@ -1,18 +1,18 @@
 <?php
 
-class Template extends Base\Package {
+class Template {
 // version 3
 
     public function __construct($filename) {
         $this->filename = $filename;
-        parent::__construct();
     }
 
     public function show($template_vars = array()) {
+        $env = Environment::get_env();
         foreach($template_vars as $template_var_name => $template_var_value)
         ${$template_var_name} = $template_var_value;
         
-        include($this->env->basedir . 'templates/' . $this->filename);
+        include($env->basedir . 'templates/' . $this->filename);
     }
 
     public function get_html_output($template_vars = array()) {
