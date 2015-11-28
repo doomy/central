@@ -14,6 +14,7 @@ class DirectiveFactory {
                 $filename = $directive_parameters[0];
                 return new IncludeDirective($filename);
                 break;
+            case 'foreach':
         }
     }
 

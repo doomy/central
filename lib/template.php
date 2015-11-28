@@ -3,6 +3,9 @@
 use Template\Directive\DirectiveFactory;
 
 class Template {
+    const SIMPLE_DIRECTIVE_START = '<<<';
+    const SIMPLE_DIRECTIVE_END = '>>>';
+
     private $template_vars;
 
     public function __construct($filename) {
@@ -24,19 +27,23 @@ class Template {
     }
 
     private function process_output($output) {
-        $startpos = strpos($output, '<<<');
+        return $this->process_simple_directives($output);
+    }
+
+    private function process_simple_directives($output) {
+        $startpos = strpos($output, self::SIMPLE_DIRECTIVE_START);
         while($startpos > -1) {
-            $endpos = strpos($output, '>>>');
+            $endpos = strpos($output, self::SIMPLE_DIRECTIVE_END);
             $length = $endpos - $startpos + 3;
             $raw_directive = substr($output, $startpos, $length);
-            $replace = $this->process_directive($raw_directive);
+            $replace = $this->process_directive($raw_directive, $output);
             $output = substr_replace($output,$replace,$startpos,$length);
-            $startpos = strpos($output, '<<<'); // next occurence
+            $startpos = strpos($output, self::SIMPLE_DIRECTIVE_START); // next occurence
         }
         return $output;
     }
 
-    private function process_directive($directive_code) {
+    private function process_directive($directive_code, $output) {
         $directive = DirectiveFactory::get_directive($directive_code);
         return $directive->render($this->template_vars);
     }
