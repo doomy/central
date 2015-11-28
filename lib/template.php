@@ -1,5 +1,7 @@
 <?php
 
+use Template\Directive\DirectiveFactory;
+
 class Template {
     private $template_vars;
 
@@ -34,18 +36,9 @@ class Template {
         return $output;
     }
 
-    private function process_directive($directive) {
-        $directive = trim($directive, '<');
-        $directive = trim($directive, '>');
-        $parts = explode("=", $directive);
-        if ($parts[0] == 'include') {
-            ob_start();
-                $template = new Template($parts[1]);
-                $template->show($this->template_vars);
-                $output = ob_get_contents();
-            ob_end_clean();
-        }
-        return $output;
+    private function process_directive($directive_code) {
+        $directive = DirectiveFactory::get_directive($directive_code);
+        return $directive->render($this->template_vars);
     }
 }
 ?>
