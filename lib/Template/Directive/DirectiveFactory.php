@@ -3,28 +3,39 @@
 namespace Template\Directive;
 
 use Template\Directive\IncludeDirective;
+use Template\Directive\DirectiveParser;
 
 
 class DirectiveFactory {
+    private static $nestedDirectiveNames = array('foreach');
+
     public static function get_directive($directive_code) {
-        list($directive_name, $directive_parameters) = self::get_directive_data($directive_code);
+        $directive_name = DirectiveParser::get_directive_name($directive_code);
 
         switch($directive_name) {
             case 'include':
-                $filename = $directive_parameters[0];
-                return new IncludeDirective($filename);
+                $directive = new IncludeDirective();
                 break;
             case 'foreach':
+                $directive = new ForeachDirective();
+                break;
         }
+
+        self::init_directive($directive, $directive_code);
+        return $directive;
     }
 
-    private static function get_directive_data($directive_code) {
-        $directive_code = trim($directive_code, '<');
-        $directive_code = trim($directive_code, '>');
-        $parts = explode("|", $directive_code);
-        $directive_name = array_shift($parts);
-        $directive_parameters = $parts;
-        return array($directive_name, $directive_parameters);
+    public static function init_directive($directive, $directive_code) {
+        $directive_data = DirectiveParser::get_directive_data($directive_code);
+        $directive_name = $directive_data['directive_name'];
+        $directive_parameters = $directive_data['directive_parameters'];
+        $directive_contents = self::is_nested_directive($directive_name) ? $directive_data['directive_contents'] : null;
+        $directive->set_parameters($directive_parameters);
+        $directive->set_contents($directive_contents);
+    }
+
+    public static function is_nested_directive($directive_name) {
+        return (in_array($directive_name, self::$nestedDirectiveNames));
     }
 }
 
