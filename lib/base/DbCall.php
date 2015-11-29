@@ -2,6 +2,8 @@
 
 namespace base;
 
+use Environment;
+
 abstract class DbCall {
     protected $mysqli;
 
