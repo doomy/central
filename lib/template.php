@@ -11,10 +11,9 @@ class Template {
         $this->template_vars = $template_vars;
     }
 
-    public function show($template_vars = array()) {
+    public function show() {
         $env = Environment::get_env();
-        $this->template_vars = $template_vars;
-        foreach($template_vars as $template_var_name => $template_var_value)
+        foreach($this->template_vars as $template_var_name => $template_var_value)
         ${$template_var_name} = $template_var_value;
         ob_start();
             include($env->basedir . 'templates/' . $this->filename);

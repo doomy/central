@@ -11,8 +11,8 @@ class Env {
     }
     
     public function include_snippet($name, $args = null) {
-        $snippet = new Template("snippets/$name.tpl.php");
-        $snippet->show($args);
+        $snippet = new Template("snippets/$name.tpl.php", $args);
+        $snippet->show();
     }
 
     function _set_env_vars_from_env_files() {
