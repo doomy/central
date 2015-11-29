@@ -1,26 +1,27 @@
 <?php
 
-class DbHandler extends Base\Package {
+class DbHandler {
     # 23.11.2014
 
     private $connection;
     private $mysqli;
 
-    function _init() {
+    public function __construct() {
+        $this->env = Environment::get_env();
         $this->mysqli = new mysqli(
-            $this->env->ENV_VARS['DB_HOST'],
-            $this->env->ENV_VARS['DB_USER'],
-            $this->env->ENV_VARS['DB_PASS'],
-            $this->env->ENV_VARS['DB_NAME']
+            $this->env->CONFIG['DB_HOST'],
+            $this->env->CONFIG['DB_USER'],
+            $this->env->CONFIG['DB_PASS'],
+            $this->env->CONFIG['DB_NAME']
         );
 
         $this->connection = mysql_connect(
-            $this->env->ENV_VARS['DB_HOST'],
-            $this->env->ENV_VARS['DB_USER'],
-            $this->env->ENV_VARS['DB_PASS']
+            $this->env->CONFIG['DB_HOST'],
+            $this->env->CONFIG['DB_USER'],
+            $this->env->CONFIG['DB_PASS']
         );
-        mysql_select_db($this->env->ENV_VARS['DB_NAME'], $this->connection);
-        if ($this->env->ENV_VARS['DB_CREATE']) {
+        mysql_select_db($this->env->CONFIG['DB_NAME'], $this->connection);
+        if ($this->env->CONFIG['DB_CREATE']) {
             $this->_create_db();
         }
         mysql_set_charset('utf8');
