@@ -26,8 +26,24 @@ class Template {
     }
 
     public function process_output($output) {
+        $output = $this->process_variables($output);
         $output = $this->process_nested_directives($output);
         $output = $this->process_simple_directives($output);
+        return $output;
+    }
+
+    private function process_variables($output) {
+        $startpos = strpos($output, DirectiveParser::VARIABLE_DELIMITER);
+        while($startpos > -1) {
+            $endpos = strpos($output, DirectiveParser::VARIABLE_DELIMITER, $startpos+2) + 2;
+            $length = $endpos - $startpos;
+            $variable_code = substr($output, $startpos, $length);
+
+            $variable_name = str_replace('$$', '', $variable_code);
+            $replacement_string = $this->template_vars[$variable_name];
+            $output = substr_replace($output, $replacement_string, $startpos, $endpos);
+            $startpos = strpos($output, DirectiveParser::VARIABLE_DELIMITER); // next position
+        }
         return $output;
     }
 

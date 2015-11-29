@@ -8,6 +8,7 @@ use Template\Directive\DirectiveFactory;
 class DirectiveParser {
     const DIRECTIVE_START = '<<<';
     const DIRECTIVE_END = '>>>';
+    const VARIABLE_DELIMITER = '$$';
 
     public static function get_directive_name($raw_directive) {
         $stripped_code = str_replace(self::DIRECTIVE_START, '', $raw_directive);
