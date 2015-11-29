@@ -4,6 +4,7 @@ class DbHandler extends Base\Package {
     # 23.11.2014
 
     private $connection;
+    private $mysqli;
 
     function _init() {
         $this->mysqli = new mysqli(
@@ -89,6 +90,10 @@ class DbHandler extends Base\Package {
         array_shift($arg_list);
         array_shift($arg_list);
         return call_user_func_array(array($package, $db_call_name), $arg_list);
+    }
+
+    public function get_mysqli_object() {
+        return $this->mysqli;
     }
     
     function _get_valid_db_call_class_name($package) {
