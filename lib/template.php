@@ -6,8 +6,9 @@ use Template\Directive\DirectiveParser;
 class Template {
     private $template_vars;
 
-    public function __construct($filename) {
+    public function __construct($filename = null, $template_vars = null) {
         $this->filename = $filename;
+        $this->template_vars = $template_vars;
     }
 
     public function show($template_vars = array()) {
@@ -24,7 +25,7 @@ class Template {
         echo $output;
     }
 
-    private function process_output($output) {
+    public function process_output($output) {
         $output = $this->process_nested_directives($output);
         $output = $this->process_simple_directives($output);
         return $output;
