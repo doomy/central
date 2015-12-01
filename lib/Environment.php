@@ -18,6 +18,19 @@ class Environment {
         }
         return self::$dbh;
     }
+
+    public static function var_dump($value, $caption = null) {
+        echo "<p>";
+            if ($caption)
+                echo "<strong>$caption</strong><br />";
+            var_dump($value);
+        echo "</p>";
+    }
+
+    public static function var_dump_die($value, $caption = null) {
+        self::var_dump($value, $caption);
+        die();
+    }
 }
 
 
