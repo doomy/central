@@ -58,7 +58,7 @@ class Template {
         }
         else { // scalar variable
             $variable_name = $stripped_variable_code;
-            return $this->template_vars[$variable_name];
+            return isset($this->template_vars[$variable_name]) ? $this->template_vars[$variable_name] : null;
         }
     }
 
