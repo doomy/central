@@ -24,7 +24,7 @@ class IfDirective extends Directive {
 
     private function process_condition($raw_condition) {
         $equation_position = strpos($raw_condition, '==');
-        if (!$equation_position) return $raw_condition;
+        if ((!$equation_position) && ($equation_position != 0)) return $raw_condition;
 
         $parts = explode("==", $raw_condition);
         return $parts[0]==$parts[1];
