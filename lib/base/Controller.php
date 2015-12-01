@@ -3,7 +3,7 @@
 namespace base;
 
 abstract class Controller {
-    private $action;
+    protected $action;
 
     public function __construct() {
         if (isset($_REQUEST['action'])) {
