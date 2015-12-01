@@ -37,10 +37,8 @@ class Template {
             $endpos = strpos($output, DirectiveParser::VARIABLE_DELIMITER, $startpos+2) + 2;
             $length = $endpos - $startpos;
             $variable_code = substr($output, $startpos, $length);
-
-
             $replacement_string = $this->get_variable_replacement_string($variable_code);
-            $output = substr_replace($output, $replacement_string, $startpos, $endpos);
+            $output = substr_replace($output, $replacement_string, $startpos, $length);
             $startpos = strpos($output, DirectiveParser::VARIABLE_DELIMITER); // next position
         }
         return $output;
