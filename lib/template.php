@@ -32,7 +32,10 @@ class Template {
     private function read_template_file($filename) {
         $env = Environment::get_env();
         ob_start();
-            include($env->basedir . 'templates/' . $filename);
+            if (file_exists($env->CONFIG['LOCAL_PATH'] . 'templates/' . $filename))
+                $fullpath = $env->CONFIG['LOCAL_PATH'] . 'templates/' . $filename;
+            else $fullpath = $env->CONFIG['CENTRAL_PATH'] . 'templates/' . $filename;
+            include($fullpath);
             $output = ob_get_contents();
         ob_end_clean();
         return $output;
@@ -46,7 +49,7 @@ class Template {
             $variable_code = substr($output, $startpos, $length);
             $replacement_string = $this->get_variable_replacement_string($variable_code);
             $output = substr_replace($output, $replacement_string, $startpos, $length);
-            $startpos = strpos($output, DirectiveParser::VARIABLE_DELIMITER); // next position
+            $startpos = strpos($output, DirectiveParser::VARIABLE_DELIMITER, $endpos); // next position
         }
         return $output;
     }
@@ -66,8 +69,13 @@ class Template {
         $parts = explode('->', $stripped_variable_code);
         $variable_name = $parts[0];
         $property_name = $parts[1];
-        $object = $this->template_vars[$variable_name];
-        return $object->{$property_name};
+        if (isset($this->template_vars[$variable_name]))
+            $source = $this->template_vars[$variable_name];
+        else return '$$'.$stripped_variable_code.'$$';
+        if (is_object($source))
+            return $source->{$property_name};
+        else
+            return $source[$property_name];
     }
 
     private function process_nested_directives($output) {
