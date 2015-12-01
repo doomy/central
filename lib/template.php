@@ -38,12 +38,31 @@ class Template {
             $length = $endpos - $startpos;
             $variable_code = substr($output, $startpos, $length);
 
-            $variable_name = str_replace('$$', '', $variable_code);
-            $replacement_string = $this->template_vars[$variable_name];
+
+            $replacement_string = $this->get_variable_replacement_string($variable_code);
             $output = substr_replace($output, $replacement_string, $startpos, $endpos);
             $startpos = strpos($output, DirectiveParser::VARIABLE_DELIMITER); // next position
         }
         return $output;
+    }
+
+    private function get_variable_replacement_string($variable_code) {
+        $stripped_variable_code = str_replace("$$", "", $variable_code);
+        if (strpos($variable_code, '->') > -1) { // object property
+            return $this->get_property_replacement_string($stripped_variable_code);
+        }
+        else { // scalar variable
+            $variable_name = $stripped_variable_code;
+            return $this->template_vars[$variable_name];
+        }
+    }
+
+    private function get_property_replacement_string($stripped_variable_code) {
+        $parts = explode('->', $stripped_variable_code);
+        $variable_name = $parts[0];
+        $property_name = $parts[1];
+        $object = $this->template_vars[$variable_name];
+        return $object->{$property_name};
     }
 
     private function process_nested_directives($output) {
