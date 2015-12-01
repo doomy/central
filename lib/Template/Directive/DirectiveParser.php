@@ -9,10 +9,12 @@ class DirectiveParser {
     const DIRECTIVE_START = '<<<';
     const DIRECTIVE_END = '>>>';
     const VARIABLE_DELIMITER = '$$';
+    const ARG_DELIMITER = '|';
 
     public static function get_directive_name($raw_directive) {
         $stripped_code = str_replace(self::DIRECTIVE_START, '', $raw_directive);
-        $parts = explode('|', $stripped_code);
+        $separator = self::get_directive_name_separator($stripped_code);
+        $parts = explode($separator, $stripped_code);
         return $parts[0];
     }
 
@@ -31,6 +33,19 @@ class DirectiveParser {
         }
 
         return $directive_data;
+    }
+
+    private function get_directive_name_separator($stripped_code) {
+        $first_delimiter_position = strpos($stripped_code, self::ARG_DELIMITER);
+        $first_directive_end_position = strpos($stripped_code, self::DIRECTIVE_END);
+
+        if(!$first_delimiter_position) $separator = self::DIRECTIVE_END;
+        else if ($first_delimiter_position > $first_directive_end_position) $separator = self::DIRECTIVE_END;
+        else $separator = self::ARG_DELIMITER;
+
+
+
+        return $separator;
     }
 
     private static function get_nested_directive_data($directive_code, $directive_name) {

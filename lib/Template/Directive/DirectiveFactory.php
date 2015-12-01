@@ -2,12 +2,14 @@
 
 namespace Template\Directive;
 
-use Template\Directive\IncludeDirective;
 use Template\Directive\DirectiveParser;
+use Template\Directive\IncludeDirective;
+use Template\Directive\ForeachDirective;
+use Template\Directive\IfDirective;
 
 
 class DirectiveFactory {
-    private static $nestedDirectiveNames = array('foreach');
+    private static $nestedDirectiveNames = array('foreach', 'if');
 
     public static function get_directive($directive_code) {
         $directive_name = DirectiveParser::get_directive_name($directive_code);
@@ -18,6 +20,9 @@ class DirectiveFactory {
                 break;
             case 'foreach':
                 $directive = new ForeachDirective();
+                break;
+            case 'if':
+                $directive = new IfDirective();
                 break;
         }
 
