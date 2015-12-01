@@ -5,29 +5,36 @@ use Template\Directive\DirectiveParser;
 
 class Template {
     private $template_vars;
+    private $contents;
 
     public function __construct($filename = null, $template_vars = null) {
-        $this->filename = $filename;
+        if ($filename) {
+            $this->contents = $this->read_template_file($filename);
+        }
         $this->template_vars = $template_vars;
     }
 
     public function show() {
-        $env = Environment::get_env();
         foreach($this->template_vars as $template_var_name => $template_var_value)
         ${$template_var_name} = $template_var_value;
-        ob_start();
-            include($env->basedir . 'templates/' . $this->filename);
-            $output = ob_get_contents();
-        ob_end_clean();
-        $output = $this->process_output($output);
-
+        $output = $this->process_output();
         echo $output;
     }
 
-    public function process_output($output) {
+    public function process_output($output = null) {
+        if(!$output) $output = $this->contents;
         $output = $this->process_variables($output);
         $output = $this->process_nested_directives($output);
         $output = $this->process_simple_directives($output);
+        return $output;
+    }
+
+    private function read_template_file($filename) {
+        $env = Environment::get_env();
+        ob_start();
+            include($env->basedir . 'templates/' . $filename);
+            $output = ob_get_contents();
+        ob_end_clean();
         return $output;
     }
 
