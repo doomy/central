@@ -56,7 +56,7 @@ class Template {
 
     private function get_variable_replacement_string($variable_code) {
         $stripped_variable_code = str_replace("$$", "", $variable_code);
-        if (strpos($variable_code, '->') > -1) { // object property
+        if (strpos($variable_code, '->') > -1) { // data structure
             return $this->get_property_replacement_string($stripped_variable_code);
         }
         else { // scalar variable
