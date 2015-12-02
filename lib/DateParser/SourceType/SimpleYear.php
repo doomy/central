@@ -2,6 +2,8 @@
 
 namespace DateParser\SourceType;
 
+use DateParser\SourceType\SourceType;
+
 use DateParser\Certainty\Ambiguous as AmbiguousCertainty;
 use DateParser\Certainty\NotSpecific as NotSpecificCertainty;
 
@@ -16,7 +18,7 @@ class SimpleYear extends SourceType {
         $this->year = $this->raw_date;
     }
 
-    private function determine_certainty() {
+    protected function determine_certainty() {
         if (strlen($this->raw_date)==4)
             return new NotSpecificCertainty();
 

@@ -16,7 +16,9 @@ abstract class SourceType {
     }
 
     public function get_string_representation() {
-        return "{$this->day}.{$this->month}.{$this->year}";
+        $output = "{$this->day}.{$this->month}.{$this->year}";
+        if ($this->bc) $output .= " BC";
+        return $output;
     }
 
     public function get_certainty() {
