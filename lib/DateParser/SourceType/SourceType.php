@@ -4,23 +4,26 @@ namespace DateParser\SourceType;
 
 
 abstract class SourceType {
-    protected $day;
-    protected $month;
+    protected $day = 1;
+    protected $month = 1;
     protected $year;
     protected $bc = false;
     protected $certainty;
+    protected $raw_date;
 
-    public function get_text_representation() {
-        return "$day.$month.$year";
+    public function __construct($raw_date) {
+        $this->raw_date = $raw_date;
+    }
+
+    public function get_string_representation() {
+        return "{$this->day}.{$this->month}.{$this->year}";
     }
 
     public function get_certainty() {
         return $this->certainty;
     }
 
-    abstract public function parse();
-
-    abstract public function check($raw_date);
+    abstract public function check();
 }
 
 ?> 

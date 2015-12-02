@@ -11,7 +11,7 @@ class Unknown extends SourceType {
         $this->certainty = new UnknownCertainty();
     }
 
-    public function check($raw_date) {
+    public function check() {
         return true;
     }
 
