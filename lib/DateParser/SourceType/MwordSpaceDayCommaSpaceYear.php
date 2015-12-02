@@ -11,11 +11,8 @@ class MwordSpaceDayCommaSpaceYear extends SourceType {
         if (count($parts) != 3) return false;
 
         $parts[1] = str_replace(',', '', $parts[1]);
-        if (!ctype_digit($parts[1])) return false;
-        if ($parts[1] > 31) return false;
-
+        if (!DateParser::is_valid_day_number($parts[1])) return false;
         if (!DateParser::is_month_name($parts[0])) return false;
-
         if (!DateParser::is_valid_year_number($parts[2])) return false;
 
         return true;

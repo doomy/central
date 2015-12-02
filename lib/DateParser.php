@@ -38,6 +38,12 @@ class DateParser {
         if (strlen($year) > 4) return false;
         return true;
     }
+
+    public static function is_valid_day_number($day) {
+        if (!ctype_digit($day)) return false;
+        if ($day > 31) return false;
+        return true;
+    }
 }
 
 ?> 
