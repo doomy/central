@@ -29,7 +29,10 @@
             require $centralFileName;
         }
         else {
-            echo 'Class "'.$className.'" does not exist.';
+
+            echo 'Class "'.$className.'" does not exist. <br />';
+            echo "nonexistent localal path: $localFileName <br/>";
+            echo "nonexistent central path: $centralFileName <br/>";
         }
     }
     spl_autoload_register('loadClass'); // Registers the autoloader
