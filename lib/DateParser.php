@@ -29,9 +29,14 @@ class DateParser {
     }
 
     public static function get_month_number($month_string) {
-
         $month_index = array_search(strtolower($month_string), self::$month_names);
         return ++$month_index;
+    }
+
+    public static function is_valid_year_number($year) {
+        if (!ctype_digit($year)) return false;
+        if (strlen($year) > 4) return false;
+        return true;
     }
 }
 
