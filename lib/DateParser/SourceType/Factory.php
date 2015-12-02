@@ -10,7 +10,7 @@ class Factory {
     public static function get_sourcetype_object($raw_date) {
         $raw_date = trim($raw_date);
         $raw_date_escaped = addslashes($raw_date);
-g
+
         foreach (self::get_sourcetype_classes() as $class) {
             $source_type = eval("
                 use DateParser\\SourceType\\$class;

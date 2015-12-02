@@ -2,7 +2,7 @@
 
 namespace DateParser\SourceType;
 
-use DateParser\Certainty\Unknown as UnknownCertainty;
+use DateParser\Certainty\Ambiguous as AmbiguousCertainty;
 
 class SimpleYear extends SourceType {
     public function check() {
@@ -11,8 +11,7 @@ class SimpleYear extends SourceType {
     }
 
     public function parse() {
-
-        $this->certainty = new UnknownCertainty();
+        $this->certainty = new AmbiguousCertainty();
         $this->year = $this->raw_date;
     }
 }
