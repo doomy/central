@@ -20,6 +20,7 @@ abstract class SourceType {
 
     abstract public function parse();
 
+    abstract public function check($raw_date);
 }
 
 ?> 

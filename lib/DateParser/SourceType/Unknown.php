@@ -14,6 +14,10 @@ class Unknown extends SourceType {
         $this->certainty = new UnknownCertainty();
     }
 
+    public function check($raw_date) {
+        return true;
+    }
+
     public function get_string_representation() {
         return 'unknown';
     }
