@@ -1,7 +1,7 @@
 <?php
 
 use DateParser\Sampler;
-use DateParser\SourceType\Unknown;
+use DateParser\SourceType\Factory as SourceTypeFactory;
 
 class DateParser {
 
@@ -13,7 +13,7 @@ class DateParser {
     public static function parse_date($source_date) {
         $result = new stdClass();
 
-        $parse_object = new Unknown();
+        $parse_object = SourceTypeFactory::get_sourcetype_object($source_date);
         $parse_object->parse();
         $result->original = $source_date;
         $result->parsed = $parse_object->get_string_representation();
