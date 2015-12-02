@@ -4,8 +4,8 @@ namespace DateParser\SourceType;
 
 
 abstract class SourceType {
-    protected $day = 1;
-    protected $month = 1;
+    protected $day;
+    protected $month;
     protected $year;
     protected $bc = false;
     protected $certainty;
@@ -16,7 +16,10 @@ abstract class SourceType {
     }
 
     public function get_string_representation() {
-        $output = "{$this->day}.{$this->month}.{$this->year}";
+        if ($this->day && $this->month && $this->year)
+            $output = "{$this->day}.{$this->month}.{$this->year}";
+        else if ($this->year)
+            $output = $this->year;
         if ($this->bc) $output .= " BC";
         return $output;
     }
