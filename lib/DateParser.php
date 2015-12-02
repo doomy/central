@@ -1,7 +1,7 @@
 <?php
 
 use DateParser\Sampler;
-use DateParser\Certainty\Unknown;
+use DateParser\SourceType\Unknown;
 
 class DateParser {
 
@@ -13,10 +13,11 @@ class DateParser {
     public static function parse_date($source_date) {
         $result = new stdClass();
 
-        $certainty = new Unknown();
+        $parse_object = new Unknown();
+        $parse_object->parse();
         $result->original = $source_date;
-        $result->parsed = 'unknown';
-        $result->certainty = $certainty;
+        $result->parsed = $parse_object->get_string_representation();
+        $result->certainty = $parse_object->get_certainty();
         return $result;
     }
 }
