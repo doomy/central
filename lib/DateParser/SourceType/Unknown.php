@@ -7,9 +7,6 @@ use DateParser\Certainty\Unknown as UnknownCertainty;
 
 
 class Unknown extends SourceType {
-    public function __construct() {
-    }
-
     public function parse() {
         $this->certainty = new UnknownCertainty();
     }
