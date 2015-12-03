@@ -6,7 +6,9 @@ use DateParser\Certainty\NotSpecific as NotSpecificCertainty;
 
 class SimpleYearBC extends SimpleYear {
     public function check() {
-        if (strpos($this->raw_date, ' BC'))
+        if (strpos($this->raw_date, ' BCE'))
+            $this->raw_date = str_replace(' BCE', '', $this->raw_date);
+        elseif (strpos($this->raw_date, ' BC'))
             $this->raw_date = str_replace(' BC', '', $this->raw_date);
         elseif ($this->raw_date[0] == '-')
             $this->raw_date = substr($this->raw_date, 1);
