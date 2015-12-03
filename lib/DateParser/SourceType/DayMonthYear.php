@@ -20,7 +20,7 @@ class DayMonthYear extends SourceTypeWithSeparator {
 
     public function parse() {
         $this->day = $this->parts[0];
-        $this->month = $this->parts[1];
+        $this->month = (int)$this->parts[1];
         $this->year = $this->parts[2];
         if (DateParser::is_day_number_for_sure($this->day))
             $this->certainty = new Definite();

@@ -18,7 +18,7 @@ class YearDayMonth extends SourceTypeWithSeparator {
 
     public function parse() {
         $this->day = $this->parts[1];
-        $this->month = $this->parts[2];
+        $this->month = (int)$this->parts[2];
         $this->year = $this->parts[0];
         $this->certainty = new Definite();
     }
