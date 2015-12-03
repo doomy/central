@@ -39,6 +39,12 @@ class DateParser {
         return true;
     }
 
+    public static function is_valid_month_number($month) {
+        if (!ctype_digit($month)) return false;
+        if ($month > 12) return false;
+        return true;
+    }
+
     public static function is_valid_day_number($day) {
         if (!ctype_digit($day)) return false;
         if ($day > 31) return false;
