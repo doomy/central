@@ -20,7 +20,6 @@ class MonthNameYear extends SourceType {
         $this->year = $parts[1];
         $this->certainty = new NotSpecific();
     }
-
 }
 
 ?> 

@@ -5,7 +5,7 @@ namespace DateParser\SourceType;
 class Factory {
     private function get_sourcetype_classes() {
         return array(
-            'YearMonthDay', 'YearMonth',
+            'YearMonthDay', 'YearMonth', 'YearDayMonth',
             'ShortMonthYear', 'MonthNameYear',
             'MwordSpaceDayCommaSpaceYear', 'DaySpaceMwordSpaceYear',
             'YearOrYear',
