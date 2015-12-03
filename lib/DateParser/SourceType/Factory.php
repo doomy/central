@@ -4,7 +4,11 @@ namespace DateParser\SourceType;
 
 class Factory {
     private function get_sourcetype_classes() {
-        return array('YearMonthDay', 'YearMonth','MwordSpaceDayCommaSpaceYear', 'DaySpaceMwordSpaceYear', 'SimpleYearBC', 'SimpleYearWithChars', 'SimpleYear', 'Unknown');
+        return array(
+            'YearMonthDay', 'YearMonth', 'ShortMonthYear',
+            'MwordSpaceDayCommaSpaceYear', 'DaySpaceMwordSpaceYear',
+            'SimpleYearBC', 'SimpleYearWithChars', 'SimpleYear', 'Unknown'
+        );
     }
 
     public static function get_sourcetype_object($raw_date) {

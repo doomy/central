@@ -4,7 +4,7 @@ namespace DateParser\SourceType;
 use DateParser\Certainty\NotSpecific as NotSpecificCertainty;
 
 
-class SimpleYearBC extends SimpleYear {
+class SimpleYearBC extends SimpleYearWithChars {
     public function check() {
         if (strpos($this->raw_date, ' BCE'))
             $this->raw_date = str_replace(' BCE', '', $this->raw_date);

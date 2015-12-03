@@ -4,6 +4,7 @@ namespace DateParser\SourceType;
 
 use DateParser;
 use DateParser\Certainty\Likely;
+use DateParser\Certainty\Definite;
 use DateParser\SourceType\YearMonth;
 
 class YearMonthDay extends YearMonth {
@@ -18,7 +19,10 @@ class YearMonthDay extends YearMonth {
     public function parse() {
         parent::parse();
         $this->day = $this->parts[2];
-        $this->certainty = new Likely();
+        if (DateParser::is_day_number_for_sure($this->day))
+            $this->certainty = new Definite();
+        else
+            $this->certainty = new Likely();
     }
 }
 

@@ -7,6 +7,8 @@ class DateParser {
     private static $month_names =
         array("january", "february", "march", "april", "may", "june", "july", "august",
             "september", "october", "november", "december");
+    private static $short_month_names =
+        array("jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec");
 
     public function render_sampler() {
         $sampler = new Sampler();
@@ -28,8 +30,17 @@ class DateParser {
         return in_array(strtolower($string), self::$month_names);
     }
 
+    public static function is_short_month_name($string) {
+        return in_array(strtolower($string), self::$short_month_names);
+    }
+
     public static function get_month_number($month_string) {
         $month_index = array_search(strtolower($month_string), self::$month_names);
+        return ++$month_index;
+    }
+
+    public static function get_short_month_number($short_month_string) {
+        $month_index = array_search(strtolower($short_month_string), self::$short_month_names);
         return ++$month_index;
     }
 
@@ -49,6 +60,12 @@ class DateParser {
         if (!ctype_digit($day)) return false;
         if ($day > 31) return false;
         return true;
+    }
+
+    public static function is_day_number_for_sure($day) {
+        if (!ctype_digit($day)) return false;
+        if ($day > 12) return true;
+        return false;
     }
 }
 
