@@ -6,7 +6,7 @@ class Factory {
     private function get_sourcetype_classes() {
         return array(
             'YearMonthDay', 'YearMonth', 'DayMonthYear',
-            'YearDayMonth',
+            'YearDayMonth', 'MonthDayYear',
             'ShortMonthYear', 'MonthNameYear',
             'MwordSpaceDayCommaSpaceYear', 'DaySpaceMwordSpaceYear',
             'YearOrYear',
