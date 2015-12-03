@@ -7,6 +7,7 @@ class Factory {
         return array(
             'YearMonthDay', 'YearMonth', 'ShortMonthYear',
             'MwordSpaceDayCommaSpaceYear', 'DaySpaceMwordSpaceYear',
+            'YearOrYear',
             'SimpleYearBC', 'SimpleYearWithChars', 'SimpleYear', 'Unknown'
         );
     }
