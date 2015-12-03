@@ -18,6 +18,8 @@ abstract class SourceType {
     public function get_string_representation() {
         if ($this->day && $this->month && $this->year)
             $output = "{$this->day}.{$this->month}.{$this->year}";
+        else if ($this->year && $this->month)
+            $output = $this->year . "/" . $this->month;
         else if ($this->year)
             $output = $this->year;
         if ($this->bc) $output .= " BC";
