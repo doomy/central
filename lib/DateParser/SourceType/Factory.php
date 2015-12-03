@@ -9,7 +9,7 @@ class Factory {
             'YearDayMonth', 'MonthDayYear',
             'ShortMonthYear', 'MonthNameYear',
             'MwordSpaceDayCommaSpaceYear', 'DaySpaceMwordSpaceYear',
-            'YearOrYear',
+            'ThCentury', 'YearOrYear',
             'SimpleYearBC', 'SimpleYearWithChars', 'SimpleYear', 'Unknown'
         );
     }
