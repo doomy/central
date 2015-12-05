@@ -12,6 +12,7 @@ class NthCenturyWithMess extends SourceTypeWithSeparator {
     public function check() {
         if (!strpos(strtolower($this->raw_date), 'century')) return false;
         if (!$this->separator) return false;
+        $this->parts = DateParser::strip_ambiguous_parts($this->parts);
         $year = DateParser::get_nth_number($this->parts[0]) . '00';
         return DateParser::is_valid_year_number($year);
     }
