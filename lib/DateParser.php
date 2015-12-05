@@ -108,15 +108,12 @@ class DateParser {
 
     public static function get_day_from_nth_day($day) {
         $day = strtolower($day);
+        $day = str_replace("st", "", $day);
+        $day = str_replace("nd", "", $day);
+        $day = str_replace("rd", "", $day);
+        $day = str_replace("th", "", $day);
+        return self::is_valid_day_number($day) ? $day : false;
 
-        if      ($day == "1st") return 1;
-        elseif  ($day == "2nd") return 2;
-        elseif  ($day == "3rd") return 3;
-        else {
-            $day = str_replace("th", "", $day);
-            return self::is_valid_day_number($day) ? $day : false;
-        }
-        return false;
     }
 
     public static function strip_invalid_parts($parts) {
