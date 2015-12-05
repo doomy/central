@@ -10,7 +10,7 @@ class MonthNameYear extends SourceTypeWithSeparatorAndFixedParts {
     protected $expected_parts_amount = 2;
 
     public function check() {
-        parent::check();
+        if (!parent::check()) return false;
         if (!DateParser::is_month_name($this->parts[0])) return false;
         if (!DateParser::is_valid_year_number($this->parts[1])) return false;
         return true;
