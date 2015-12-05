@@ -18,12 +18,20 @@ class DateParser {
     public static function parse_date($source_date) {
         $result = new stdClass();
 
-        $parse_object = SourceTypeFactory::get_sourcetype_object($source_date);
+        $raw_date = self::purify_source_date($source_date);
+        $parse_object = SourceTypeFactory::get_sourcetype_object($raw_date);
         $parse_object->parse();
         $result->original = $source_date;
         $result->parsed = $parse_object->get_string_representation();
         $result->certainty = $parse_object->get_certainty();
         return $result;
+    }
+
+    public static function purify_source_date($source_date) {
+        $raw_date = trim($source_date);
+        $raw_date = str_replace(",", "", $raw_date);
+        $raw_date = str_replace("&nbsp;", " ", $raw_date);
+        return $raw_date;
     }
 
     public static function is_month_name($string) {
