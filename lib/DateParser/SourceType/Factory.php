@@ -6,9 +6,9 @@ class Factory {
     private function get_sourcetype_classes() {
         return array(
             'YearMonthDay', 'YearMonth', 'DayMonthYear',
-            'YearDayMonth', 'MonthDayYear', 'MonthnameDayYearWithMess',
+            'YearDayMonth', 'MonthDayYear',
             'MonthnameDayYearBC', 'NthdayMonthnameYear',
-            'MonthnameDayYear', 'DayMonthnameYear', 'DayMonthNameYearWithMess',
+            'MonthnameDayYear', 'MonthnameDayYearWithMess', 'DayMonthnameYear', 'DayMonthNameYearWithMess',
             'MonthnameNthdayYear',
             'ShortMonthYear', 'MonthNameYear',
             'ThCentury', 'YearOrYear', 'NthCenturyWithMess',
