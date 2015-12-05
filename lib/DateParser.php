@@ -45,25 +45,25 @@ class DateParser {
     }
 
     public static function is_valid_year_number($year) {
-        if (!ctype_digit($year)) return false;
+        if (!is_numeric($year)) return false;
         if (strlen($year) > 4) return false;
         return true;
     }
 
     public static function is_valid_month_number($month) {
-        if (!ctype_digit($month)) return false;
+        if (!is_numeric($month)) return false;
         if ($month > 12) return false;
         return true;
     }
 
     public static function is_valid_day_number($day) {
-        if (!ctype_digit($day)) return false;
+        if (!is_numeric($day)) return false;
         if ($day > 31) return false;
         return true;
     }
 
     public static function is_day_number_for_sure($day) {
-        if (!ctype_digit($day)) return false;
+        if (!is_numeric($day)) return false;
         if ($day > 12) return true;
         return false;
     }
@@ -93,6 +93,19 @@ class DateParser {
 
     public static function is_valid_month_name($month_name) {
         return in_array(strtolower($month_name), self::$month_names);
+    }
+
+    public static function get_day_from_nth_day($day) {
+        $day = strtolower($day);
+
+        if      ($day == "1st") return 1;
+        elseif  ($day == "2nd") return 2;
+        elseif  ($day == "3rd") return 3;
+        else {
+            $day = str_replace("th", "", $day);
+            return self::is_valid_day_number($day) ? $day : false;
+        }
+        return false;
     }
 }
 

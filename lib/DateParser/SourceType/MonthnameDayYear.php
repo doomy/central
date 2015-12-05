@@ -11,7 +11,6 @@ class MonthnameDayYear extends SourceTypeWithSeparatorAndFixedParts {
 
     public function check() {
         if (!parent::check()) return false;
-
         if (!DateParser::is_valid_day_number($this->parts[1])) return false;
         if (!DateParser::is_month_name($this->parts[0])) return false;
         if (!DateParser::is_valid_year_number($this->parts[2])) return false;

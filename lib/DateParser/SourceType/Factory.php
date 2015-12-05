@@ -8,6 +8,7 @@ class Factory {
             'YearMonthDay', 'YearMonth', 'DayMonthYear',
             'YearDayMonth', 'MonthDayYear',
             'MonthnameDayYear', 'DayMonthnameYear', 'DayMonthNameYearWithMess',
+            'MonthnameNthdayYear',
             'ShortMonthYear', 'MonthNameYear',
             'ThCentury', 'YearOrYear',
             'SimpleYearBC', 'SimpleYearWithChars', 'SimpleYear',
