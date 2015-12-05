@@ -7,6 +7,7 @@ class Factory {
         return array(
             'YearMonthDay', 'YearMonth', 'DayMonthYear',
             'YearDayMonth', 'MonthDayYear',
+            'MonthnameDayYearBC',
             'MonthnameDayYear', 'DayMonthnameYear', 'DayMonthNameYearWithMess',
             'MonthnameNthdayYear',
             'ShortMonthYear', 'MonthNameYear',
