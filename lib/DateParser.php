@@ -9,6 +9,7 @@ class DateParser {
             "september", "october", "november", "december");
     private static $short_month_names =
         array("jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec");
+    private static $illegal_characters = array(",", "?", "!");
 
     public function render_sampler() {
         $sampler = new Sampler();
@@ -29,7 +30,9 @@ class DateParser {
 
     public static function purify_source_date($source_date) {
         $raw_date = trim($source_date);
-        $raw_date = str_replace(",", "", $raw_date);
+        foreach (self::$illegal_characters as $illegal_character) {
+            $raw_date = str_replace($illegal_character, "", $raw_date);
+        }
         $raw_date = str_replace("&nbsp;", " ", $raw_date);
         return $raw_date;
     }
