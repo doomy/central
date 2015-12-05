@@ -11,7 +11,7 @@ class Factory {
             'MonthnameDayYear', 'DayMonthnameYear', 'DayMonthNameYearWithMess',
             'MonthnameNthdayYear',
             'ShortMonthYear', 'MonthNameYear',
-            'ThCentury', 'YearOrYear',
+            'ThCentury', 'YearOrYear', 'NthCenturyWithMess',
             'SimpleYearBC', 'SimpleYearWithChars', 'SimpleYear',
             'Unknown'
         );

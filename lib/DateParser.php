@@ -111,12 +111,17 @@ class DateParser {
         return in_array(strtolower($month_name), self::$month_names);
     }
 
+    public static function get_nth_number($string) {
+        $string = str_replace("st", "", $string);
+        $string = str_replace("nd", "", $string);
+        $string = str_replace("rd", "", $string);
+        $string = str_replace("th", "", $string);
+        return is_numeric($string) ? $string : false;
+    }
+
     public static function get_day_from_nth_day($day) {
         $day = strtolower($day);
-        $day = str_replace("st", "", $day);
-        $day = str_replace("nd", "", $day);
-        $day = str_replace("rd", "", $day);
-        $day = str_replace("th", "", $day);
+        $day = self::get_nth_number($day);
         return self::is_valid_day_number($day) ? $day : false;
 
     }
