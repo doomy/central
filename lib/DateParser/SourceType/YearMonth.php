@@ -6,7 +6,7 @@ use DateParser;
 use DateParser\Certainty\NotSpecific as NotSpecificCertainty;
 
 
-class YearMonth extends SourceTypeWithSeparator {
+class YearMonth extends SourceTypeWithSeparatorAndFixedParts {
     protected $expected_parts_amount = 2;
 
     public function check() {

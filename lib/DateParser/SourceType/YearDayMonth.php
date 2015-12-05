@@ -5,7 +5,7 @@ namespace DateParser\SourceType;
 use DateParser;
 use DateParser\Certainty\Definite;
 
-class YearDayMonth extends SourceTypeWithSeparator {
+class YearDayMonth extends SourceTypeWithSeparatorAndFixedParts {
     protected $expected_parts_amount = 3;
 
     public function check() {

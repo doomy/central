@@ -7,7 +7,7 @@ use DateParser\Certainty\Likely;
 use DateParser\Certainty\Definite;
 
 
-class DayMonthYear extends SourceTypeWithSeparator {
+class DayMonthYear extends SourceTypeWithSeparatorAndFixedParts {
     protected $expected_parts_amount = 3;
 
     public function check() {
