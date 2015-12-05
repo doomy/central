@@ -37,6 +37,7 @@ class DateParser {
         foreach (self::$illegal_characters as $illegal_character) {
             $raw_date = str_replace($illegal_character, "", $raw_date);
         }
+        $raw_date = str_replace(" of ", " ", $raw_date);
         $raw_date = str_replace("&nbsp;", " ", $raw_date);
         return $raw_date;
     }
