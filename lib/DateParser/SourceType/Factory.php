@@ -7,7 +7,7 @@ class Factory {
         return array(
             'YearMonthDay', 'YearMonth', 'DayMonthYear',
             'YearDayMonth', 'MonthDayYear',
-            'MwordSpaceDayCommaSpaceYear', 'DayMonthnameYear', 'DayMonthNameYearWithMess',
+            'MonthnameDayYear', 'DayMonthnameYear', 'DayMonthNameYearWithMess',
             'ShortMonthYear', 'MonthNameYear',
             'ThCentury', 'YearOrYear',
             'SimpleYearBC', 'SimpleYearWithChars', 'SimpleYear',
@@ -17,6 +17,7 @@ class Factory {
 
     public static function get_sourcetype_object($raw_date) {
         $raw_date = trim($raw_date);
+        $raw_date = str_replace(",", "", $raw_date);
         $raw_date_escaped = addslashes($raw_date);
 
         foreach (self::get_sourcetype_classes() as $class) {
