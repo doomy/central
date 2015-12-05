@@ -10,6 +10,10 @@ class DateParser {
     private static $short_month_names =
         array("jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec");
     private static $illegal_characters = array(",", "?", "!");
+    private static $ambiguous_keywords = array(
+        "circa", "around", "about", "late", "early", "before", "after",
+        "baptized", "probably", "uncertain"
+    );
 
     public function render_sampler() {
         $sampler = new Sampler();
@@ -123,6 +127,14 @@ class DateParser {
                 $stripped_parts[] = $part;
         }
         return $stripped_parts;
+    }
+
+    public static function contains_ambiguous_keyword($raw_date) {
+        $raw_date_lower = strtolower($raw_date);
+        foreach (self::$ambiguous_keywords as $keyword) {
+            if (strpos($raw_date_lower, $keyword) > -1 ) return true;
+        }
+        return false;
     }
 
 }
