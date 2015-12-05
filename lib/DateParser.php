@@ -67,6 +67,19 @@ class DateParser {
         if ($day > 12) return true;
         return false;
     }
+
+    public static function find_separator_from_subset($separator_subset, $haystack) {
+        $count = 0;
+        foreach($separator_subset as $separator) {
+            if (strpos($haystack, $separator)) {
+                $final_separator = $separator;
+                $count++;
+            }
+        }
+
+        if ($count!=1) return false;
+        return $final_separator;
+    }
 }
 
 ?> 
