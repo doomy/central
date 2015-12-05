@@ -80,6 +80,20 @@ class DateParser {
         if ($count!=1) return false;
         return $final_separator;
     }
+
+    public static function contains_a_month_name($list) {
+        foreach($list as $string) {
+            if (self::is_valid_month_name($string)) {
+                return $string;
+            }
+        }
+
+        return false;
+    }
+
+    public static function is_valid_month_name($month_name) {
+        return in_array(strtolower($month_name), self::$month_names);
+    }
 }
 
 ?> 

@@ -7,7 +7,7 @@ class Factory {
         return array(
             'YearMonthDay', 'YearMonth', 'DayMonthYear',
             'YearDayMonth', 'MonthDayYear',
-            'MwordSpaceDayCommaSpaceYear', 'DayMonthnameYear',
+            'MwordSpaceDayCommaSpaceYear', 'DayMonthnameYear', 'DayMonthNameYearWithMess',
             'ShortMonthYear', 'MonthNameYear',
             'ThCentury', 'YearOrYear',
             'SimpleYearBC', 'SimpleYearWithChars', 'SimpleYear',
