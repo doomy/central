@@ -118,6 +118,16 @@ class DateParser {
         }
         return false;
     }
+
+    public static function strip_invalid_parts($parts) {
+        $stripped_parts = array();
+        foreach($parts as $part) {
+            if (is_numeric($part) || self::is_valid_month_name($part))
+                $stripped_parts[] = $part;
+        }
+        return $stripped_parts;
+    }
+
 }
 
 ?> 
