@@ -19,7 +19,7 @@ class YearMonthDay extends YearMonth {
     public function parse() {
         parent::parse();
         $this->day = (int)$this->parts[2];
-        if (DateParser::is_day_number_for_sure($this->day))
+        if (DateParser::is_day_number_for_sure($this->day) || ((int)$this->day == (int)$this->month))
             $this->certainty = new Definite();
         else
             $this->certainty = new Likely();
