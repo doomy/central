@@ -12,7 +12,7 @@ class DateParser {
     private static $illegal_characters = array(",", "?", "!", "[", "]");
     private static $ambiguous_keywords = array(
         "circa", "around", "about", "late", "early", "before", "after",
-        "baptized", "probably", "uncertain"
+        "baptized", "probably", "uncertain", "bapt.", "beginning"
     );
 
     public function render_sampler() {
