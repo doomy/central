@@ -4,6 +4,8 @@ use DateParser\Sampler;
 use DateParser\SourceType\Factory as SourceTypeFactory;
 
 class DateParser {
+    private $sampler;
+
     private static $month_names =
         array("january", "february", "march", "april", "may", "june", "july", "august",
             "september", "october", "november", "december");
@@ -15,11 +17,6 @@ class DateParser {
         "baptized", "probably", "uncertain", "bapt.", "beginning"
     );
 
-    public function render_sampler() {
-        $sampler = new Sampler();
-        return $sampler->render();
-    }
-
     public static function parse_date($source_date) {
         $result = new stdClass();
 
@@ -30,6 +27,16 @@ class DateParser {
         $result->parsed = $parse_object->get_string_representation();
         $result->certainty = $parse_object->get_certainty();
         return $result;
+    }
+
+    public function render_sampler() {
+        $sampler = $this->get_sampler();
+        return $sampler->render();
+    }
+
+    public function set_sampler_samples($samples) {
+        $sampler = $this->get_sampler();
+        $sampler->set_samples($samples);
     }
 
     public static function purify_source_date($source_date) {
@@ -150,6 +157,12 @@ class DateParser {
                 $new_parts[] = $part;
         }
         return $new_parts;
+    }
+
+    private function get_sampler() {
+        if($this->sampler) return $this->sampler;
+        $this->sampler = new Sampler();
+        return $this->sampler;
     }
 
 }

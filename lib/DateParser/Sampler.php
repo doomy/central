@@ -7,6 +7,8 @@ use Environment;
 use DateParser;
 
 class Sampler {
+    private $samples;
+
     public function render() {
         $template = new Template(
             'DateParser/sampler.tpl.php',
@@ -15,6 +17,10 @@ class Sampler {
             )
         );
         return $template->process_output();
+    }
+
+    public function set_samples($samples) {
+        $this->samples = $samples;
     }
 
     private function get_sampler_data() {
@@ -31,10 +37,13 @@ class Sampler {
     }
 
     private function get_samples() {
+        if ($this->samples) return $this->samples;
+
         $env =  Environment::get_env();
         $path = $env->CONFIG['CENTRAL_PATH'].'data/DateParser/sampler.txt';
         $contents = file_get_contents($path);
-        return explode("\n", $contents);
+        $this->samples = explode("\n", $contents);
+        return $this->samples;
     }
 }
 
