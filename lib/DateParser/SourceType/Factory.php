@@ -7,10 +7,11 @@ class Factory {
         return array(
             'YearMonthDay', 'YearMonth', 'DayMonthYear',
             'YearDayMonth', 'MonthDayYear',
+            'MwordSpaceDayCommaSpaceYear', 'DayMonthnameYear',
             'ShortMonthYear', 'MonthNameYear',
-            'MwordSpaceDayCommaSpaceYear', 'DaySpaceMwordSpaceYear',
             'ThCentury', 'YearOrYear',
-            'SimpleYearBC', 'SimpleYearWithChars', 'SimpleYear', 'Unknown'
+            'SimpleYearBC', 'SimpleYearWithChars', 'SimpleYear',
+            'Unknown'
         );
     }
 
@@ -27,7 +28,6 @@ class Factory {
                return $source_type;
             }
         }
-        return new Unknown();
     }
 }
 

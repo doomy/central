@@ -5,7 +5,7 @@ namespace DateParser\SourceType;
 use DateParser;
 use DateParser\Certainty\Definite as DefiniteCertainty;
 
-class DaySpaceMwordSpaceYear extends SourceType {
+class DayMonthnameYear extends SourceType {
     public function check() {
         $parts = explode(" ", $this->raw_date);
         if (!DateParser::is_valid_day_number($parts[0])) return false;
