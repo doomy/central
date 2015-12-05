@@ -7,7 +7,7 @@ use DateParser\Certainty\Ambiguous;
 
 class YearOrYear extends SourceTypeWithSeparatorAndFixedParts {
     protected $expected_parts_amount = 2;
-    protected $separator_subset = array('/');
+    protected $separator_subset = array('/', ' or ');
 
     public function check() {
         parent::check();
