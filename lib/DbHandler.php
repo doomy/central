@@ -29,11 +29,6 @@ class DbHandler {
         $this->process_sql($sql);
     }
     
-    public function fetch_one_from_sql($sql, $format = 'object') {
-        $result = $this->query($sql);
-        return call_user_func(array($this, "_fetch_".$format), $result);
-    }
-
     public function fetch_one_from_result($result, $format = 'object') {
         $function_name = "mysql_fetch_$format";
         return $function_name($result);
