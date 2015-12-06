@@ -31,7 +31,7 @@ class DbHandler {
     public function run_db_call($package, $db_call_name) {
         include_php_file_once("db_calls/$package.php");
         $package_class = $this->_get_valid_db_call_class_name($package);
-        $package = new $package_class($this);
+        $package = new $package_class($this->mysqli);
         $arg_list = func_get_args();
         array_shift($arg_list);
         array_shift($arg_list);
@@ -102,10 +102,10 @@ class DbHandler {
 
     private function _update_upgrade_version($upgrade_id) {
         $sql = "INSERT INTO t_upgrade_history (id, message) VALUES('$upgrade_id', 'Upgrade no. $upgrade_id');";
-        $this->query($sql);
+        $this->mysqli->query($sql);
     }
 
-    public function get_mysqli_connection() {
+    private function get_mysqli_connection() {
         if ($this->mysqli) return $this->mysqli;
         else {
             $this->mysqli = new mysqli(
