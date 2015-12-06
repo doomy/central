@@ -17,13 +17,6 @@ class DbHandler {
         $this->_manage_upgrades();
     }
 
-    public function query_get_obj_onerow(
-        $columns_list, $table, $where = false, $order_by = '', $desc = false
-    ) {
-        $result = $this->_query_get_result($columns_list, $table, $where, $order_by, $desc, 1);
-        return $this->fetch_one_from_result($result, 'object');
-    }
-
     public function query($sql) {
         return  $this->mysqli->query($sql);
     }
