@@ -106,22 +106,6 @@ class DbHandler {
         $this->query($sql);
     }
 
-    private function _query_get_result(
-        $columns_list = null, $table, $where = null, $order_by = '', $desc = false, $limit = null
-    ) {
-        if (!$columns_list) $columns = '*';
-        else $columns = implode(', ', $columns_list);
-        if ($order_by <> '')
-            $order_by = "ORDER BY $order_by";
-        if ($where) $where = "WHERE $where";
-        if ($desc) $desc = 'DESC';
-        if ($limit) $limit = "LIMIT $limit";
-        else
-            $desc = '';
-        $sql = "SELECT $columns FROM $table $where $order_by $desc $limit;";
-        return $this->query($sql);
-    }
-
     public function get_mysqli_connection() {
         if ($this->mysqli) return $this->mysqli;
         else {
