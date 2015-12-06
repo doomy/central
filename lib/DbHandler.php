@@ -44,14 +44,6 @@ class DbHandler {
         return array_pop($parts) . "_db_calls";
     }
     
-    function _fetch_array($result) {
-        return mysql_fetch_array($result);
-    }
-    
-    function _fetch_object($result) {
-        return @mysql_fetch_object($result);
-    }
-
     private function _create_db() {
         $this->process_sql_file($this->env->basedir.'sql/base.sql');
     }
