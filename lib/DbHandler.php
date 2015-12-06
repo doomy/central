@@ -29,14 +29,6 @@ class DbHandler {
         $this->process_sql($sql);
     }
     
-    public function fetch_multiple_from_result($result, $format = 'object') {
-        $function_name = "mysql_fetch_$format";
-        while ($row = $function_name($result)) {
-            $rows[] = $row;
-        }
-        return $rows;
-    }
-    
     public function run_db_call($package, $db_call_name) {
         include_php_file_once("db_calls/$package.php");
         $package_class = $this->_get_valid_db_call_class_name($package);
