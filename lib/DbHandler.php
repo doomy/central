@@ -17,13 +17,6 @@ class DbHandler {
         $this->_manage_upgrades();
     }
 
-    public function get_array_of_rows_from_table(
-        $table_name, $columns = null, $where = null, $format = 'object'
-    ) {
-        $result = $this->_query_get_result($columns, $table_name, $where);
-        return $this->fetch_multiple_from_result($result, $format);
-    }
-
     public function process_sql($sql) {
         $queries = explode(';', $sql);
         foreach ($queries as $query) {
