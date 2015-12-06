@@ -3,7 +3,6 @@
 class DbHandler {
     # 23.11.2014
 
-    private $connection;
     private $mysqli;
 
     public function __construct() {
