@@ -8,19 +8,8 @@ class DbHandler {
 
     public function __construct() {
         $this->env = Environment::get_env();
-        $this->mysqli = new mysqli(
-            $this->env->CONFIG['DB_HOST'],
-            $this->env->CONFIG['DB_USER'],
-            $this->env->CONFIG['DB_PASS'],
-            $this->env->CONFIG['DB_NAME']
-        );
+        $this->mysqli = $this->get_mysqli_connection();
 
-        $this->connection = mysql_connect(
-            $this->env->CONFIG['DB_HOST'],
-            $this->env->CONFIG['DB_USER'],
-            $this->env->CONFIG['DB_PASS']
-        );
-        mysql_select_db($this->env->CONFIG['DB_NAME'], $this->connection);
         if ($this->env->CONFIG['DB_CREATE']) {
             $this->_create_db();
         }
@@ -84,19 +73,15 @@ class DbHandler {
     }
     
     public function run_db_call($package, $db_call_name) {
-        include_once($this->env->basedir . "db_calls/$package.php");
+        include_php_file_once("db_calls/$package.php");
         $package_class = $this->_get_valid_db_call_class_name($package);
-        $package = new $package_class($this->env);
+        $package = new $package_class($this);
         $arg_list = func_get_args();
         array_shift($arg_list);
         array_shift($arg_list);
         return call_user_func_array(array($package, $db_call_name), $arg_list);
     }
 
-    public function get_mysqli_object() {
-        return $this->mysqli;
-    }
-    
     function _get_valid_db_call_class_name($package) {
         $parts = explode('/', $package);
         return array_pop($parts) . "_db_calls";
@@ -109,13 +94,13 @@ class DbHandler {
     function _fetch_object($result) {
         return @mysql_fetch_object($result);
     }
-    
+
     private function _create_db() {
         $this->process_sql_file($this->env->basedir.'sql/base.sql');
     }
 
     private function _manage_upgrades() {
-        $last_processed_upgrade_id = $this->_get_last_processed_upgrade_id();
+        $last_processed_upgrade_id = $this->run_db_call('DbHandler', 'get_last_processed_upgrade_id');
         $upgrade_files = $this->_get_upgrade_files();
         if(!$upgrade_files) return;
         sort($upgrade_files, SORT_NUMERIC);
@@ -160,13 +145,6 @@ class DbHandler {
         return false;
     }
 
-    private function _get_last_processed_upgrade_id() {
-        $assoc_array = @$this->query_get_assoc_onerow(
-            array('id'), 't_upgrade_history', false, 'id', true
-        );
-        return $assoc_array['id'];
-    }
-
     private function _get_upgrade_files() {
         $dir_handler = new Dir($this->env);
         return $dir_handler->get_files_from_dir_by_extension(
@@ -193,6 +171,19 @@ class DbHandler {
             $desc = '';
         $sql = "SELECT $columns FROM $table $where $order_by $desc $limit;";
         return $this->query($sql);
+    }
+
+    public function get_mysqli_connection() {
+        if ($this->mysqli) return $this->mysqli;
+        else {
+            $this->mysqli = new mysqli(
+                $this->env->CONFIG['DB_HOST'],
+                $this->env->CONFIG['DB_USER'],
+                $this->env->CONFIG['DB_PASS'],
+                $this->env->CONFIG['DB_NAME']
+            );
+        }
+        return $this->mysqli;
     }
 }
 ?>

@@ -35,5 +35,19 @@
             echo "nonexistent central path: $centralFileName <br/>";
         }
     }
+
+    function include_php_file_once($fileName) {
+        global $CONFIG;
+
+        $localPath = str_replace('/', DIRECTORY_SEPARATOR, $CONFIG['LOCAL_PATH']);
+        $centralPath = str_replace('/', DIRECTORY_SEPARATOR, $CONFIG['CENTRAL_PATH']);
+        $localFileName = $localPath . $fileName;
+        $centralFileName = $centralPath . $fileName;
+        if (file_exists($localFileName))
+            include_once($localFileName);
+        else
+            include_once($centralFileName);
+    }
+
     spl_autoload_register('loadClass'); // Registers the autoloader
 ?>
