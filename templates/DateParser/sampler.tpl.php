@@ -7,7 +7,7 @@
     <<<foreach|$dates|$daterow>>>
         <tr>
             <td>$$daterow->original$$</td>
-            <td>$$daterow->parsed$$</td>
+            <td>$$daterow->string$$</td>
             <td>$$daterow->certainty$$</td>
         </tr>
     <<</foreach>>>

@@ -25,8 +25,9 @@ class DateParser {
         $parse_object = SourceTypeFactory::get_sourcetype_object($raw_date);
         $parse_object->parse();
         $result->original = $source_date;
-        $result->parsed = $parse_object->get_string_representation();
+        $result->string = $parse_object->get_string_representation();
         $result->certainty = $parse_object->get_certainty();
+        $result->parsed_data = $parse_object->get_parsed_data();
         return $result;
     }
 

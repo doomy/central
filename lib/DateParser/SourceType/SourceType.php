@@ -30,6 +30,16 @@ abstract class SourceType {
         return $this->certainty;
     }
 
+    public function get_parsed_data() {
+        return array(
+            'day' => $this->day,
+            'month' => $this->month,
+            'year' => $this->year,
+            'bc' => $this->bc,
+            'certainty' => $this->certainty
+        );
+    }
+
     abstract public function check();
 }
 
