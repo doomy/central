@@ -8,15 +8,13 @@ class Template {
     private $contents;
 
     public function __construct($filename = null, $template_vars = null) {
+        $this->template_vars = $template_vars;
         if ($filename) {
             $this->contents = $this->read_template_file($filename);
         }
-        $this->template_vars = $template_vars;
     }
 
     public function show() {
-        foreach($this->template_vars as $template_var_name => $template_var_value)
-        ${$template_var_name} = $template_var_value;
         $output = $this->process_output();
         echo $output;
     }
@@ -31,7 +29,11 @@ class Template {
 
     private function read_template_file($filename) {
         $env = Environment::get_env();
+
         ob_start();
+            foreach($this->template_vars as $template_var_name => $template_var_value)
+                ${$template_var_name} = $template_var_value;
+
             if (file_exists($env->CONFIG['LOCAL_PATH'] . 'templates/' . $filename))
                 $fullpath = $env->CONFIG['LOCAL_PATH'] . 'templates/' . $filename;
             else $fullpath = $env->CONFIG['CENTRAL_PATH'] . 'templates/' . $filename;
