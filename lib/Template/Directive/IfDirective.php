@@ -34,9 +34,11 @@ class IfDirective extends Directive {
         foreach($template_vars as $key => $value) {
             $$key = $value;
         }
-        return eval("
+        $result = @eval("
             return $condition;
         ");
+
+        return $result;
     }
 
 }

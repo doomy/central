@@ -74,10 +74,11 @@ class Template {
         if (isset($this->template_vars[$variable_name]))
             $source = $this->template_vars[$variable_name];
         else return '$$'.$stripped_variable_code.'$$';
+
         if (is_object($source))
-            return $source->{$property_name};
+            return isset($source->{$property_name}) ? $source->{$property_name} : "";
         else
-            return $source[$property_name];
+            return isset($source[$property_name]) ? $source[$property_name] : "";
     }
 
     private function process_nested_directives($output) {
@@ -94,6 +95,7 @@ class Template {
                 $length = $endpos - $startpos + strlen($end_tag);
                 $raw_directive = substr($output, $startpos, $length);
                 $replace = $this->process_directive($raw_directive, $output);
+                $endpos = $startpos + strlen($replace);
                 $output = substr_replace($output,$replace,$startpos,$length);
             }
             $startpos = strpos($output, DirectiveParser::DIRECTIVE_START, $endpos); // next occurence

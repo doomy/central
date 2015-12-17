@@ -13,7 +13,6 @@ class DirectiveFactory {
 
     public static function get_directive($directive_code) {
         $directive_name = DirectiveParser::get_directive_name($directive_code);
-
         switch($directive_name) {
             case 'include':
                 $directive = new IncludeDirective();
