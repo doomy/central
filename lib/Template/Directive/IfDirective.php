@@ -30,7 +30,14 @@ class IfDirective extends Directive {
     }
 
     private function process_condition_result($template_vars) {
-        $condition = $this->process_condition($this->parameters[0]);
+        $negate = false;
+        $raw_condition = $this->parameters[0];
+        if (@$raw_condition[0] == "!") {
+            $raw_condition = substr($raw_condition, 1);
+            $negate = true;
+        }
+        $condition = $this->process_condition($raw_condition);
+
         foreach($template_vars as $key => $value) {
             $$key = $value;
         }
@@ -38,7 +45,8 @@ class IfDirective extends Directive {
             return $condition;
         ");
 
-        return $result;
+        if (!$negate) return $result;
+        else return !$result;
     }
 
 }
