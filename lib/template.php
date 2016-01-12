@@ -69,16 +69,27 @@ class Template {
 
     private function get_property_replacement_string($stripped_variable_code) {
         $parts = explode('->', $stripped_variable_code);
-        $variable_name = $parts[0];
-        $property_name = $parts[1];
+        $variable_name = array_shift($parts);
+        $props = $parts;
+        $property_name = $props[0];
+
         if (isset($this->template_vars[$variable_name]))
             $source = $this->template_vars[$variable_name];
         else return '$$'.$stripped_variable_code.'$$';
 
-        if (is_object($source))
-            return isset($source->{$property_name}) ? $source->{$property_name} : "";
-        else
-            return isset($source[$property_name]) ? $source[$property_name] : "";
+        $notation = '$source';
+        if (is_object($source)) {
+            foreach($props as $prop) {
+                $notation = $notation . '->'. $prop;
+            }
+            return eval("return $notation;");
+        }
+        else {
+            foreach($props as $prop) {
+                $notation = '[' . $notation . ']'. $prop;
+            }
+            return eval("return $notation;");
+        }
     }
 
     private function process_nested_directives($output) {
