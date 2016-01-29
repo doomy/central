@@ -12,6 +12,10 @@ abstract class ContainerComponent extends Component {
 	public function addChild($child) {
 		$this->children[] = $child;
 	}
+
+	public function getChildren() {
+		return $this->children;
+	}
 }
 
 ?>
