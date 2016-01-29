@@ -6,7 +6,7 @@ use Template\Directive\DirectiveParser;
 class Template {
     private $template_vars;
     private $contents;
-	private $component;
+	private $component = null;
 
     public function __construct($filename = null, $template_vars = null) {
         $this->template_vars = $template_vars;
@@ -133,7 +133,7 @@ class Template {
     }
 
     private function process_directive($directive_code, $output) {
-        $directive = DirectiveFactory::get_directive($directive_code);
+        $directive = DirectiveFactory::get_directive($directive_code, $this->component);
         return $directive->render($this->template_vars);
     }
 }
