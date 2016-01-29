@@ -8,6 +8,7 @@ abstract class Component {
 
 	public function __construct(Template $template) {
 		$this->template = $template;
+		$this->template->attach_component($this);
 	}
 
 	public function render() {
