@@ -9,7 +9,7 @@ abstract class ContainerComponent extends Component {
 		$this->children = $children;
 	}
 
-	public function addChild(Component $child) {
+	public function addChild($child) {
 		$this->children[] = $child;
 	}
 }
