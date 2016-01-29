@@ -6,12 +6,13 @@ use Template\Directive\DirectiveParser;
 use Template\Directive\IncludeDirective;
 use Template\Directive\ForeachDirective;
 use Template\Directive\IfDirective;
+use Template\Directive\RenderComponentChildren;
 
 
 class DirectiveFactory {
     private static $nestedDirectiveNames = array('foreach', 'if');
 
-    public static function get_directive($directive_code) {
+    public static function get_directive($directive_code, $component = null) {
         $directive_name = DirectiveParser::get_directive_name($directive_code);
         switch($directive_name) {
             case 'include':
@@ -23,6 +24,9 @@ class DirectiveFactory {
             case 'if':
                 $directive = new IfDirective();
                 break;
+			case 'render_component_children':
+				$directive = new RenderComponentChildren($component);
+				break;
         }
 
         self::init_directive($directive, $directive_code);
