@@ -1,1 +1,3 @@
-<input type="text" <<<if|$placeholder>>>placeholder="$$placeholder$$" />
+<input type="text"
+	<<<if|$placeholder>>>placeholder="$$placeholder$$"<<</if>>>
+/>
