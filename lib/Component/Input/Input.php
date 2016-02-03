@@ -16,4 +16,11 @@ abstract class Input extends Component {
 		$this->label = $label;
 	}
 
+    public function receive() {
+        if(isset($_REQUEST[$this->name])) {
+            return $_REQUEST[$this->name];
+        }
+        return false;
+    }
+
 } 
