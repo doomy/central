@@ -11,10 +11,10 @@ abstract class Component {
 
 	public function assignTemplate(Template $template) {
 		$this->template = $template;
-		$this->template->attach_component($this);
 	}
 
 	public function render() {
+		$this->template->attach_component($this);
 		return $this->template->process_output();
 	}
 
