@@ -21,6 +21,7 @@ class Template {
     }
 
     public function process_output($output = null) {
+        if ($this->component) $this->update_component_variables();
         if(!$output) $output = $this->contents;
         $output = $this->process_variables($output);
         $output = $this->process_nested_directives($output);
@@ -135,6 +136,12 @@ class Template {
     private function process_directive($directive_code, $output) {
         $directive = DirectiveFactory::get_directive($directive_code, $this->component);
         return $directive->render($this->template_vars);
+    }
+
+    private function update_component_variables() {
+        foreach($this->component as $key => $value) {
+            $this->template_vars[$key] = $value;
+        }
     }
 }
 ?>

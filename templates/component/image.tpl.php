@@ -1,0 +1,1 @@
+<img <<<if|$title>>> alt="$$text$$" <<</if>>> src="$$imagePath$$" />

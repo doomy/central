@@ -7,7 +7,7 @@ class Dir {
     }
 
     public function get_files_from_dir_by_extension($dir, $extension) {
-        if ($all_files = $this->_get_files_from_dir($dir)) {
+        if ($all_files = self::get_files_from_dir($dir)) {
             foreach ($all_files as $file) {
                 if ($this->_file_has_extension($file, $extension)) {
                     $files[] = $file;
@@ -96,22 +96,22 @@ class Dir {
         return file_exists($file_name);
     }
 
-    private function _is_file($path) {
+    private static function _is_file($path) {
         return !is_dir($path);
     }
 
-    private function _get_files_from_dir($dir) {
-        if ($all_from_dir = $this->_get_all_from_dir($dir)) {
+    public static function get_files_from_dir($dir) {
+        if ($all_from_dir = self::get_all_from_dir($dir)) {
             $files = array();
             foreach($all_from_dir as $dir_element)
-                if ($this->_is_file($dir.'/'.$dir_element))
+                if (self::_is_file($dir.'/'.$dir_element))
                     $files[] .= $dir_element;
             return $files;
         }
         else return false;
     }
 
-    private function _get_all_from_dir($dir) {
+    private static function get_all_from_dir($dir) {
 
         if ($handle = @opendir($dir)) {
 
