@@ -5,10 +5,11 @@ use Template;
 
 abstract class Component {
 	protected $template;
+	protected $templateFileName;
     public $htmlClass;
     public $dataGroup;
 
-	public function __construct(Template $template) {
+	public function assignTemplate(Template $template) {
 		$this->template = $template;
 		$this->template->attach_component($this);
 	}
@@ -28,4 +29,8 @@ abstract class Component {
     public function setDataGroup($dataGroup) {
         $this->dataGroup = $dataGroup;
     }
+
+	public function getTemplateFileName() {
+		return $this->templateFileName;
+	}
 }

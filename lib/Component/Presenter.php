@@ -5,6 +5,7 @@ namespace Component;
 use Gajus\Dindent\Indenter;
 
 class Presenter extends ContainerComponent {
+	protected $templateFileName = 'index.tpl.php';
     public $title;
 
     public function setTitle($title) {
