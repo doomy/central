@@ -8,7 +8,6 @@ abstract class DbCall {
     public function __construct($mysqli) {
         $this->mysqli = $mysqli;
     }
-
 }
 
 ?> 
