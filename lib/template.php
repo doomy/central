@@ -56,8 +56,13 @@ class Template {
             $length = $endpos - $startpos;
             $variable_code = substr($output, $startpos, $length);
             $replacement_string = $this->get_variable_replacement_string($variable_code);
-            $output = substr_replace($output, $replacement_string, $startpos, $length);
-            $startpos = strpos($output, DirectiveParser::VARIABLE_DELIMITER); // next position
+			if ($replacement_string!=$variable_code) {
+				$output = substr_replace($output, $replacement_string, $startpos, $length);
+				$startpos = strpos($output, DirectiveParser::VARIABLE_DELIMITER); // next position
+			}
+			else {
+				$startpos = strpos($output, DirectiveParser::VARIABLE_DELIMITER, $endpos);
+			}
         }
         return $output;
     }
@@ -92,7 +97,7 @@ class Template {
         }
         else {
             foreach($props as $prop) {
-                $notation = '[' . $notation . ']'. $prop;
+                $notation = $notation . "['" . $prop . "']";
             }
             return eval("return $notation;");
         }
