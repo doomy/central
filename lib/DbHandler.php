@@ -105,7 +105,7 @@ class DbHandler {
         $this->mysqli->query($sql);
     }
 
-    private function get_mysqli_connection() {
+    public function get_mysqli_connection() {
         if ($this->mysqli) return $this->mysqli;
         else {
             $this->mysqli = new mysqli(

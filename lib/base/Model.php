@@ -2,7 +2,7 @@
 
 namespace base;
 
-abstract class DbCall {
+abstract class Model {
     protected $mysqli;
 
     public function __construct($mysqli) {
