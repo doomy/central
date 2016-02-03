@@ -1,40 +1,49 @@
 <?php
     function loadClass($className) {
         global $CONFIG;
-        $fileName = '';
-        $namespace = '';
 
-/*        // Sets the include path as the "src" directory
-        $includePath = dirname(__FILE__).DIRECTORY_SEPARATOR;*/
-        // $includePath = '\lib';
-
-        if (false !== ($lastNsPos = strripos($className, '\\'))) {
-            $namespace = substr($className, 0, $lastNsPos);
-            $className = substr($className, $lastNsPos + 1);
-            $fileName = str_replace('\\', DIRECTORY_SEPARATOR, $namespace) . DIRECTORY_SEPARATOR;
-        }
-        $fileName .= str_replace('_', DIRECTORY_SEPARATOR, $className) . '.php';
-        /*$fullFileName = $includePath . DIRECTORY_SEPARATOR . $fileName;*/
-        
-        $localPath = str_replace('/', DIRECTORY_SEPARATOR, $CONFIG['LOCAL_PATH']);
-        $centralPath = str_replace('/', DIRECTORY_SEPARATOR, $CONFIG['CENTRAL_PATH']);
-        
-        $localFileName = $localPath.'lib'.DIRECTORY_SEPARATOR . $fileName;
-        $centralFileName = $centralPath.'lib'.DIRECTORY_SEPARATOR . $fileName;
-        
-        if (file_exists($localFileName)) {
-            require $localFileName;
-        } 
-        else if (file_exists($centralFileName)) {
-            require $centralFileName;
-        }
-        else {
-
-            echo 'Class "'.$className.'" does not exist. <br />';
-            echo "nonexistent localal path: $localFileName <br/>";
-            echo "nonexistent central path: $centralFileName <br/>";
-        }
+		$fileName = getFileName($className);
+		require(getFullPath($fileName));
     }
+
+	function getFullPath($fileName) {
+		global $CONFIG;
+
+		$localPath = str_replace('/', DIRECTORY_SEPARATOR, $CONFIG['LOCAL_PATH']);
+		$localFileName = $localPath.'lib'.DIRECTORY_SEPARATOR . $fileName;
+		if(file_exists($localFileName)) return $localFileName;
+
+		$centralPath = str_replace('/', DIRECTORY_SEPARATOR, $CONFIG['CENTRAL_PATH']);
+		$centralFileName = $centralPath.'lib'.DIRECTORY_SEPARATOR . $fileName;
+		if(file_exists($centralFileName)) return $centralFileName;
+
+		$localVendorPath = str_replace('/', DIRECTORY_SEPARATOR, $CONFIG['LOCAL_PATH']);
+		$localVendorFileName = $localVendorPath.'vendor'.DIRECTORY_SEPARATOR . $fileName;
+		if(file_exists($localVendorFileName)) return $localVendorFileName;
+
+		$centralVendorPath = str_replace('/', DIRECTORY_SEPARATOR, $CONFIG['CENTRAL_PATH']);
+		$centralVendorFileName = $centralVendorPath.'vendor'.DIRECTORY_SEPARATOR . $fileName;
+		if(file_exists($centralVendorFileName)) return $centralVendorFileName;
+
+		echo "Cannot load used package! <br />";
+		echo "List of searched places: <br />";
+		echo $localFileName . "<br />";
+		echo $centralFileName . "<br />";
+		echo $localVendorFileName . "<br />";
+		echo $centralVendorFileName . "<br />";
+		die;
+	}
+
+	function getFileName($className) {
+		$fileName = '';
+		if (false !== ($lastNsPos = strripos($className, '\\'))) {
+			$namespace = substr($className, 0, $lastNsPos);
+			$className = substr($className, $lastNsPos + 1);
+			$fileName = str_replace('\\', DIRECTORY_SEPARATOR, $namespace) . DIRECTORY_SEPARATOR;
+		}
+		$fileName .= str_replace('_', DIRECTORY_SEPARATOR, $className) . '.php';
+		return $fileName;
+	}
 
     function include_php_file_once($fileName) {
         global $CONFIG;
