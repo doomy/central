@@ -31,7 +31,7 @@
 		echo $centralFileName . "<br />";
 		echo $localVendorFileName . "<br />";
 		echo $centralVendorFileName . "<br />";
-		die;
+		throw new Exception("can't find package");
 	}
 
 	function getFileName($className) {
