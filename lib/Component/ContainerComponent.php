@@ -2,8 +2,9 @@
 
 namespace Component;
 
-abstract class ContainerComponent extends Component {
+class ContainerComponent extends Component {
 	protected $children;
+	protected $templateFileName = "component/container.tpl.php";
 
 	public function setChildren(array $children) {
 		$this->children = $children;
