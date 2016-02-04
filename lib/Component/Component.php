@@ -8,6 +8,9 @@ abstract class Component {
 	protected $templateFileName;
     public $htmlClass;
     public $dataGroup;
+	public $name;
+
+	public function __construct() {}
 
 	public function assignTemplate(Template $template) {
 		$this->template = $template;
@@ -32,5 +35,13 @@ abstract class Component {
 
 	public function getTemplateFileName() {
 		return $this->templateFileName;
+	}
+
+	public function hasChildren() {
+		return false;
+	}
+
+	public function setName($name) {
+		$this->name = $name;
 	}
 }
