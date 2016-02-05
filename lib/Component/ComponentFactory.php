@@ -2,7 +2,7 @@
 
 namespace Component;
 
-use Template;
+use Template\TemplateFactory;
 use Component\Input\TextInput;
 
 class ComponentFactory {
@@ -10,7 +10,7 @@ class ComponentFactory {
 	public static function getComponent($componentClass) {
 		$component = new $componentClass();
 		$templateFileName = $component->getTemplateFileName();
-		$template = new Template($templateFileName, array());
+		$template = TemplateFactory::getTemplate($templateFileName, array());
 		$component->assignTemplate($template);
 
 		return $component;

@@ -13,8 +13,15 @@ class TwigTemplate extends \Template {
     }
 
     public function process_output() {
+        if ($this->component && $this->component->hasChildren())
+            $this->setComponentChildrenOutput();
         $twig = TwigLoader::getTwig();
-        echo $twig->render($this->filename, $this->template_vars);
+        return $twig->render($this->filename, $this->template_vars);
+    }
+
+    private function setComponentChildrenOutput() {
+        $output = parent::renderComponentChildrenOutput($this->component->getChildren());
+        $this->template_vars['component_children_output'] = $output;
     }
 }
 

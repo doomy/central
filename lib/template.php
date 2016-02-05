@@ -6,7 +6,7 @@ use Template\Directive\DirectiveParser;
 class Template {
     protected $template_vars;
     private $contents;
-	private $component = null;
+	protected $component = null;
 
     public function __construct($filename = null, $template_vars = null) {
         $this->template_vars = $template_vars;
@@ -38,6 +38,14 @@ class Template {
 	public function attach_component($component) {
 		$this->component = $component;
 	}
+
+    public static function renderComponentChildrenOutput($children) {
+        $output = '';
+        foreach($children as $child_component) {
+            $output .= $child_component->render();
+        }
+        return $output;
+    }
 
     private function read_template_file($filename) {
         $env = Environment::get_env();

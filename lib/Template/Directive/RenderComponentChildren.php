@@ -2,6 +2,8 @@
 
 namespace Template\Directive;
 
+use Template;
+
 class RenderComponentChildren extends Directive {
 	private $component;
 
@@ -10,11 +12,7 @@ class RenderComponentChildren extends Directive {
 	}
 
 	public function render($template_vars) {
-		$output = '';
         if (!$this->component) return false;
-		foreach($this->component->getChildren() as $child_component) {
-			$output .= $child_component->render();
-		}
-		return $output;
+		return Template::renderComponentChildrenOutput($this->component->getChildren());
 	}
 }
