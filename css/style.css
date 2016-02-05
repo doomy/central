@@ -12,3 +12,7 @@ body {
 form input {
     display: block;
 }
+
+form input[type=checkbox] {
+    display: inline;
+}
