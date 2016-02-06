@@ -11,6 +11,7 @@ class RenderComponentChildren extends Directive {
 
 	public function render($template_vars) {
 		$output = '';
+        if (!$this->component) return false;
 		foreach($this->component->getChildren() as $child_component) {
 			$output .= $child_component->render();
 		}
