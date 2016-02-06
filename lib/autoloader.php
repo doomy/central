@@ -1,6 +1,13 @@
 <?php
     function loadClass($className) {
         global $CONFIG;
+        if (0 == strpos($className, 'Twig')) {
+            $file = $CONFIG['CENTRAL_PATH'].'vendor/Twig/lib/'.str_replace(array('_', "\0"), array('/', ''), $className).'.php';
+            if(is_file($file)) {
+                require $file;
+                return;
+            }
+        }
 
 		$fileName = getFileName($className);
 		require(getFullPath($fileName));
