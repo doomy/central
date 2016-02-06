@@ -10,7 +10,6 @@ class ForeachDirective extends Directive {
         $output = "";
         $list_variable = ltrim($this->parameters[0], '$');
         $content_variable_name = ltrim($this->parameters[1], '$');
-
         foreach ($template_vars[$list_variable] as $elt) {
             $content_template_vars = array($content_variable_name => $elt);
             $template = new Template(null, $content_template_vars);

@@ -96,6 +96,15 @@ class Dir {
         return file_exists($file_name);
     }
 
+    public static function locate_file($file_name) {
+        $env = Environment::get_env();
+        $localPath = $env->CONFIG['LOCAL_PATH'].$file_name;
+        $centralPath = $env->CONFIG['CENTRAL_PATH'].$file_name;
+        if(file_exists($localPath)) return $localPath;
+        elseif(file_exists($centralPath)) return $centralPath;
+        return false;
+    }
+
     private static function _is_file($path) {
         return !is_dir($path);
     }
