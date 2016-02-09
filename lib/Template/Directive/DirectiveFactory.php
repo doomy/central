@@ -7,6 +7,7 @@ use Template\Directive\IncludeDirective;
 use Template\Directive\ForeachDirective;
 use Template\Directive\IfDirective;
 use Template\Directive\RenderComponentChildren;
+use Template\Directive\RenderChildComponentByName;
 
 
 class DirectiveFactory {
@@ -16,17 +17,20 @@ class DirectiveFactory {
         $directive_name = DirectiveParser::get_directive_name($directive_code);
         switch($directive_name) {
             case 'include':
-                $directive = new IncludeDirective();
+                $directive = new IncludeDirective($component);
                 break;
             case 'foreach':
                 $directive = new ForeachDirective();
                 break;
             case 'if':
-                $directive = new IfDirective();
+                $directive = new IfDirective($component);
                 break;
 			case 'render_component_children':
 				$directive = new RenderComponentChildren($component);
 				break;
+            case 'render_child_component_by_name':
+                $directive = new RenderChildComponentByName($component);
+                break;
         }
 
         self::init_directive($directive, $directive_code);

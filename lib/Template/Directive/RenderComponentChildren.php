@@ -4,12 +4,7 @@ namespace Template\Directive;
 
 use Template;
 
-class RenderComponentChildren extends Directive {
-	private $component;
-
-	public function __construct($component) {
-		$this->component = $component;
-	}
+class RenderComponentChildren extends ComponentDirective {
 
 	public function render($template_vars) {
         if (!$this->component) return false;

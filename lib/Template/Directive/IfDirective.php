@@ -5,7 +5,7 @@ namespace Template\Directive;
 use Template;
 use Template\Directive\DirectiveParser;
 
-class IfDirective extends Directive {
+class IfDirective extends ComponentDirective {
     public function render($template_vars) {
         $output = "";
         $else_separator = DirectiveParser::DIRECTIVE_START . 'else' . DirectiveParser::DIRECTIVE_END;
@@ -13,6 +13,7 @@ class IfDirective extends Directive {
         $condition_result = $this->process_condition_result($template_vars);
 
         $template = new Template(null, $template_vars);
+		if ($this->component) $template->attach_component($this->component);
         if ($condition_result) {
             $output = $template->process_output($parts[0]); // before else
         }
