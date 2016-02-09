@@ -6,6 +6,19 @@ class GeoTools {
         return $distance_in_metres * 0.000621371192; //miles
     }
 
+    public static function getLatLngFromPlace(model\Place $place) {
+        $url = 'http://maps.google.com/maps/api/geocode/json?address='.urlencode($place->name);
+
+        $json = @file_get_contents($url);
+        if ($json) {
+            $jsonDecoded = json_decode($json);
+            if($jsonDecoded->status == 'INVALID_REQUEST' || $jsonDecoded->status == 'ZERO_RESULTS') return false;
+            $location = $jsonDecoded->results[0]->geometry->location;
+
+            return array($location->lat, $location->lng);
+        }
+    }
+
     private static function vincentyGreatCircleDistance(
         $latitudeFrom, $longitudeFrom, $latitudeTo, $longitudeTo, $earthRadius = 6371000)
     {
