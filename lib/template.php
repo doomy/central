@@ -21,12 +21,6 @@ class Template {
     }
 
     public function process_output($output = null) {
-        $env = Environment::get_env();
-        $loader = new Twig_Loader_Array(array(
-            'index' => 'Hello {{ name }}!',
-        ));
-        $twig = new Twig_Environment($loader);
-
         if ($this->component) $this->update_component_variables();
         if(!$output) $output = $this->contents;
         $output = $this->process_variables($output);
