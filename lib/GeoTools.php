@@ -1,12 +1,12 @@
 <?php
 
 class GeoTools {
-    public static function compute_distance(model\Place $place1, model\Place $place2) {
+    public function compute_distance(model\Place $place1, model\Place $place2) {
         $distance_in_metres = self::vincentyGreatCircleDistance($place1->latitude, $place1->longtitude, $place2->latitude, $place2->longtitude);
         return $distance_in_metres * 0.000621371192; //miles
     }
 
-    public static function getLatLngFromPlace(model\Place $place) {
+    public function getLatLngFromPlace(model\Place $place) {
         $url = 'http://maps.google.com/maps/api/geocode/json?address='.urlencode($place->name);
 
         $json = @file_get_contents($url);
@@ -19,7 +19,7 @@ class GeoTools {
         }
     }
 
-    private static function vincentyGreatCircleDistance(
+    private function vincentyGreatCircleDistance(
         $latitudeFrom, $longitudeFrom, $latitudeTo, $longitudeTo, $earthRadius = 6371000)
     {
         // convert from degrees to radians
