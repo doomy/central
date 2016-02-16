@@ -44,4 +44,8 @@ abstract class Component {
 	public function setName($name) {
 		$this->name = $name;
 	}
+
+    public function addTemplateVars($template_vars) {
+        $this->template->addTemplateVars($template_vars);
+    }
 }
