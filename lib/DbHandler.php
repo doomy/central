@@ -8,11 +8,11 @@ class DbHandler {
     public function __construct() {
         $this->env = Environment::get_env();
         $this->mysqli = $this->get_mysqli_connection();
+        $this->mysqli->set_charset('utf8');
 
         if ($this->env->CONFIG['DB_CREATE']) {
             $this->_create_db();
         }
-        mysql_set_charset('utf8');
         $this->_manage_upgrades();
     }
 
