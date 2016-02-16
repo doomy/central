@@ -7,8 +7,11 @@ class Template {
     protected $template_vars;
     private $contents;
 	protected $component = null;
+	protected $remote = false;
+	protected $env;
 
     public function __construct($filename = null, $template_vars = null) {
+        $this->env = Environment::get_env();
         $this->template_vars = $template_vars;
         if ($filename) {
             $this->contents = $this->read_template_file($filename);
@@ -21,6 +24,8 @@ class Template {
     }
 
     public function process_output($output = null) {
+		if ($this->remote && $this->env->CONFIG['DISABLE_REMOTE'])
+			return "Remote content disabled.";
         if ($this->component) $this->update_component_variables();
         if(!$output) $output = $this->contents;
         $output = $this->process_variables($output);
@@ -41,9 +46,12 @@ class Template {
         return $output;
     }
 
-    private function read_template_file($filename) {
-        $env = Environment::get_env();
+	public function setRemote($remote) {
+		$this->remote = $remote;
+	}
 
+    private function read_template_file($filename) {
+		$env = $this->env;
         ob_start();
             foreach($this->template_vars as $template_var_name => $template_var_value)
                 ${$template_var_name} = $template_var_value;
