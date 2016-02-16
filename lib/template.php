@@ -164,5 +164,9 @@ class Template {
             $this->template_vars[$key] = $value;
         }
     }
+
+    public function addTemplateVars($template_vars) {
+        $this->template_vars = array_merge($this->template_vars, $template_vars);
+    }
 }
 ?>
