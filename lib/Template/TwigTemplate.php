@@ -13,6 +13,7 @@ class TwigTemplate extends \Template {
     }
 
     public function process_output() {
+        if ($this->component) $this->update_component_variables();
         if ($this->component && $this->component->hasChildren())
             $this->setComponentChildrenOutput();
         $twig = TwigLoader::getTwig();

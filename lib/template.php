@@ -159,7 +159,7 @@ class Template {
         return $directive->render($this->template_vars);
     }
 
-    private function update_component_variables() {
+    protected function update_component_variables() {
         foreach($this->component as $key => $value) {
             $this->template_vars[$key] = $value;
         }
