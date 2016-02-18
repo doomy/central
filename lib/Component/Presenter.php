@@ -4,11 +4,18 @@ namespace Component;
 
 use Gajus\Dindent\Indenter;
 use Dir;
+use Component\ComponentFactory;
+use Component\HtmlHead;
 
 class Presenter extends ContainerComponent {
 	protected $templateFileName = 'index.tpl.php';
     public $title;
 	public $stylesheets;
+
+	public function __construct() {
+		parent::__construct();
+		$this->addChild(ComponentFactory::getComponent(HtmlHead::class));
+	}
 
 
     public function setTitle($title) {
