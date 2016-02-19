@@ -33,6 +33,11 @@ class Presenter extends ContainerComponent {
     public function addStylesheet($cssFile) {
         $this->stylesheets[] = Dir::locate_file($cssFile);
     }
+
+	public function addJsFile($filename, $external = false) {
+		$htmlHead = array_shift($this->getChildrenByClass(HtmlHead::class));
+		$htmlHead->addJsFile($filename, $external);
+	}
 }
 
 ?>
