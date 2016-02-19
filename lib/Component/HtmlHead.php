@@ -10,6 +10,6 @@ namespace Component;
 
 
 class HtmlHead extends Component {
-	protected $templateFileName = 'head.tpl.php';
+	protected $templateFileName = 'head.twig';
 	public $name = 'HtmlHead';
 } 
