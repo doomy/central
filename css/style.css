@@ -17,3 +17,18 @@ form input {
 form input[type=checkbox] {
     display: inline;
 }
+
+table {
+    border-spacing: 0px;
+    border-collapse: collapse;
+    background-color: #ddd;
+    margin: 4px;
+    box-shadow: 10px 10px 5px #888888;
+}
+
+table tr th, table tr td {
+    font-size: 12px;
+    border: 1px solid #bbb;
+    padding: 2px;
+    margin: 0px;
+}
