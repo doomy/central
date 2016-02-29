@@ -1,5 +1,6 @@
 <?php
 
+
 class GeoTools {
     public function compute_distance(model\Place $place1, model\Place $place2) {
         $distance_in_metres = self::vincentyGreatCircleDistance($place1->latitude, $place1->longtitude, $place2->latitude, $place2->longtitude);
@@ -7,16 +8,26 @@ class GeoTools {
     }
 
     public function getLatLngFromPlace(model\Place $place) {
-        $url = 'http://maps.google.com/maps/api/geocode/json?address='.urlencode($place->name);
+        $env = Environment::get_env();
+        $key = $env->CONFIG['geocoding_api_key'];
+        $url = "https://maps.google.com/maps/api/geocode/json?key=$key&address=".urlencode($place->name);
 
-        $json = @file_get_contents($url);
-        if ($json) {
-            $jsonDecoded = json_decode($json);
-            if($jsonDecoded->status == 'INVALID_REQUEST' || $jsonDecoded->status == 'ZERO_RESULTS') return false;
-            $location = $jsonDecoded->results[0]->geometry->location;
-
-            return array($location->lat, $location->lng);
-        }
+        do {
+            $repeat = false;
+            $json = @file_get_contents($url);
+            if ($json) {
+                $jsonDecoded = json_decode($json);
+                if (isset($jsonDecoded->error_message)&&($jsonDecoded->error_message == 'You have exceeded your rate-limit for this API.')) {
+                    $repeat = true;
+                    sleep(1);
+                }
+                elseif($jsonDecoded->status == 'INVALID_REQUEST' || $jsonDecoded->status == 'ZERO_RESULTS') return false;
+                else {
+                    $location = $jsonDecoded->results[0]->geometry->location;
+                    return array($location->lat, $location->lng);
+                }
+            }
+        } while($repeat);
     }
 
     private function vincentyGreatCircleDistance(
