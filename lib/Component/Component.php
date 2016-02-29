@@ -9,6 +9,7 @@ abstract class Component {
     public $htmlClass;
     public $dataGroup;
 	public $name;
+	public $title;
 
 	public function __construct() {}
 
@@ -48,4 +49,8 @@ abstract class Component {
     public function addTemplateVars($template_vars) {
         $this->template->addTemplateVars($template_vars);
     }
+
+	public function setTitle($title) {
+		$this->title = $title;
+	}
 }
