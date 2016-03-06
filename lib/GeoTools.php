@@ -8,9 +8,7 @@ class GeoTools {
     }
 
     public function getLatLngFromPlace(model\Place $place) {
-        $env = Environment::get_env();
-        $key = $env->CONFIG['geocoding_api_key'];
-        $url = "https://maps.google.com/maps/api/geocode/json?key=$key&address=".urlencode($place->name);
+        $url = "https://maps.google.com/maps/api/geocode/json?address=".urlencode($place->name);
 
         do {
             $repeat = false;
