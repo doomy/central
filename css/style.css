@@ -32,3 +32,8 @@ table tr th, table tr td {
     padding: 2px;
     margin: 0px;
 }
+
+.float-left {
+    float: left;
+    padding-right: 30px;
+}
