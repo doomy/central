@@ -40,4 +40,5 @@ table tr th, table tr td {
 .component-block {
     display: inline-block;
     border: 1px dashed #666;
+    vertical-align: top;
 }
