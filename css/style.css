@@ -35,5 +35,9 @@ table tr th, table tr td {
 
 .float-left {
     float: left;
-    padding-right: 30px;
+}
+
+.component-block {
+    display: inline-block;
+    border: 1px dashed #666;
 }
