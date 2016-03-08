@@ -6,6 +6,7 @@ use Template;
 abstract class Component {
 	protected $template;
 	protected $templateFileName;
+	protected $hiddenChild = false;
     public $htmlClass;
     public $dataGroup;
 	public $name;
@@ -52,5 +53,9 @@ abstract class Component {
 
 	public function setTitle($title) {
 		$this->title = $title;
+	}
+
+	public function isHiddenChild() {
+		return $this->hiddenChild;
 	}
 }

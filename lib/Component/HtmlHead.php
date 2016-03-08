@@ -13,6 +13,7 @@ class HtmlHead extends Component {
 	protected $templateFileName = 'head.twig';
 	public $jsFiles;
 	public $name = 'HtmlHead';
+	protected $hiddenChild = true;
 
 	public function addJsFile($filename, $external = false) {
 		$jsFile = new \stdClass();
