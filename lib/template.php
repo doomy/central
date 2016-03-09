@@ -40,6 +40,7 @@ class Template {
 
     public static function renderComponentChildrenOutput($children) {
         $output = '';
+		if(empty($children)) return;
         foreach($children as $child_component) {
 			if(!$child_component->isHiddenChild())
             	$output .= $child_component->render();
