@@ -2,7 +2,7 @@
 
 namespace base;
 
-use Component\Presenter;
+use Component\HtmlPresenter;
 use Component\ComponentFactory;
 
 abstract class Controller {
@@ -31,7 +31,7 @@ abstract class Controller {
     }
 
     protected function initPresenter() {
-        return ComponentFactory::getComponent(Presenter::class);
+        return ComponentFactory::getComponent(HtmlPresenter::class);
     }
 }
 
