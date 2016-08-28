@@ -8,20 +8,34 @@ use Component\ComponentFactory;
 abstract class Controller {
     protected $action;
 	protected $presenter;
+    protected $defaultAction = "index";
 
     public function __construct() {
-        if (isset($_REQUEST['action'])) {
+        if (isset($_REQUEST['action']))
             $this->set_action($_REQUEST['action']);
-        }
-		$this->presenter = ComponentFactory::getComponent(Presenter::class);
+        elseif($this->defaultAction)
+            $this->set_action($this->defaultAction);
+		$this->presenter = $this->initPresenter();
     }
     
     public function set_action($action) {
         $this->action = $action; 
     }
 
-    abstract function run();
+    public function run() {
+        if (isset($this->action)) {
+            $methodName = "action".ucfirst($this->defaultAction);
+            return $this->$methodName();
+        }
+    }
 
+    protected function actionIndex() {
+        echo $this->presenter->render();
+    }
+
+    protected function initPresenter() {
+        return ComponentFactory::getComponent(Presenter::class);
+    }
 }
 
 ?>
