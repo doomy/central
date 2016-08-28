@@ -15,6 +15,7 @@ abstract class Component {
 	public function __construct() {}
 
     public function __get($property) {
+        die("getting");
         if (property_exists($this, $property)) {
             return $this->$property;
         }
