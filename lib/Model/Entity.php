@@ -30,6 +30,14 @@ class Entity extends Model {
         $row = $result->fetch_object();
         return $row->max_id;
     }
+
+    public function random() {
+        $result = $this->mysqli->query("SELECT * FROM {$this->table} ORDER BY RAND() LIMIT 1");
+        $row = $result->fetch_object();
+        foreach ($this->columns as $column) {
+            $this->{$column} = $row->{$column};
+        }
+    }
 }
 
 ?> 
