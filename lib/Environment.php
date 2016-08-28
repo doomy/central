@@ -31,6 +31,10 @@ class Environment {
         self::var_dump($value, $caption);
         die();
     }
+
+    public static function getConfig($configName) {
+        return self::$env->CONFIG[$configName];
+    }
 }
 
 

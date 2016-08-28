@@ -25,11 +25,8 @@ abstract class Controller {
     public function run() {
         if (isset($this->action)) {
             $methodName = "action".ucfirst($this->defaultAction);
-            return $this->$methodName();
+            $this->$methodName();
         }
-    }
-
-    protected function actionIndex() {
         echo $this->presenter->render();
     }
 
