@@ -23,7 +23,7 @@ class Presenter extends ContainerComponent {
     }
 
 	public function render() {
-		$this->addStylesheet('css/style.css');
+		$this->addStylesheet('css/bootstrap.css');
 		$output = parent::render();
 		$indenter = new Indenter();
 		return $indenter->indent($output);
