@@ -3,4 +3,5 @@
 	<<<if|$placeholder>>>placeholder="$$placeholder$$"<<</if>>>
 	<<<if|name>>>name="$$name$$"<<</if>>>
     value="$$value$$"
+    class="form-control"
 />
