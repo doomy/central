@@ -9,8 +9,8 @@
 <meta name="description" content="nejaky popis stranky, cca 155 znaku">
 <meta name="keywords" content="klicova slova">
 
-<link rel="stylesheet" href="css/style.css"/>
-
 {% for jsFile in jsFiles %}
     <script src="{{ jsFile.fileName }}"></script>
 {% endfor %}
+
+{% include 'styles.twig' %}
